@@ -47,14 +47,14 @@
       }
     }
   },
-  "lastUpdated": "2026-02-14T08:26:06Z",
+  "lastUpdated": "2026-02-14T08:59:07Z",
   "_meta": {
     "schemaVersion": "2.10.0",
-    "checksum": "31d2f1fbc13d97d2",
+    "checksum": "c777967f02c00af1",
     "configVersion": "2.10.0",
     "lastSessionId": null,
     "activeSession": "session_20260214_002325_816e5f",
-    "generation": 32,
+    "generation": 33,
     "lastModified": "2026-02-14T08:23:58Z"
   },
   "focus": {
@@ -528,12 +528,12 @@
     {
       "id": "T015",
       "title": "BUG: Provider model versions are outdated/incorrect",
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "type": "task",
       "parentId": "T010",
       "createdAt": "2026-02-14T08:23:50Z",
-      "updatedAt": "2026-02-14T08:23:50Z",
+      "updatedAt": "2026-02-14T08:59:07Z",
       "size": "medium",
       "position": 5,
       "positionVersion": 0,
@@ -541,6 +541,10 @@
       "description": "Hardcoded model lists are wrong. Use OpenRouter API (GET https://openrouter.ai/api/v1/models) for live model discovery instead of static definitions.",
       "labels": [
         "bug"
+      ],
+      "completedAt": "2026-02-14T08:59:07Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:59:07Z] OpenRouter model discovery implemented. model-registry.ts with 1hr caching, providers.ts refactored with dynamic loading + static fallbacks, ProviderConfig.tsx has Refresh Models button. Backend proxy in models.rs + commands.rs."
       ]
     },
     {
