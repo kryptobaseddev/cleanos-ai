@@ -1,0 +1,639 @@
+{
+  "$schema": "./schemas/todo.schema.json",
+  "version": "2.10.0",
+  "project": {
+    "name": "cleanos-ai",
+    "currentPhase": "setup",
+    "phases": {
+      "setup": {
+        "order": 1,
+        "name": "Setup & Foundation",
+        "description": "Initial project setup, dependencies, and configuration",
+        "status": "active",
+        "startedAt": "2026-02-14T07:07:07Z",
+        "completedAt": null
+      },
+      "core": {
+        "order": 2,
+        "name": "Core Development",
+        "description": "Build core functionality and features",
+        "status": "pending",
+        "startedAt": null,
+        "completedAt": null
+      },
+      "testing": {
+        "order": 3,
+        "name": "Testing & Validation",
+        "description": "Comprehensive testing, validation, and quality assurance",
+        "status": "pending",
+        "startedAt": null,
+        "completedAt": null
+      },
+      "polish": {
+        "order": 4,
+        "name": "Polish & Refinement",
+        "description": "UX improvements, optimization, and release preparation",
+        "status": "pending",
+        "startedAt": null,
+        "completedAt": null
+      },
+      "maintenance": {
+        "order": 5,
+        "name": "Maintenance",
+        "description": "Bug fixes, updates, and ongoing support",
+        "status": "pending",
+        "startedAt": null,
+        "completedAt": null
+      }
+    }
+  },
+  "lastUpdated": "2026-02-14T08:26:06Z",
+  "_meta": {
+    "schemaVersion": "2.10.0",
+    "checksum": "31d2f1fbc13d97d2",
+    "configVersion": "2.10.0",
+    "lastSessionId": null,
+    "activeSession": "session_20260214_002325_816e5f",
+    "generation": 32,
+    "lastModified": "2026-02-14T08:23:58Z"
+  },
+  "focus": {
+    "currentTask": null,
+    "currentPhase": "setup",
+    "blockedUntil": null,
+    "sessionNote": "CleanOS AI v0.1.0 build complete. Epic T001 done.",
+    "nextAction": null
+  },
+  "tasks": [
+    {
+      "id": "T001",
+      "title": "System Cleanup AI Desktop App",
+      "status": "done",
+      "priority": "critical",
+      "type": "epic",
+      "parentId": null,
+      "createdAt": "2026-02-14T07:33:55Z",
+      "updatedAt": "2026-02-14T08:01:56Z",
+      "size": "medium",
+      "position": 1,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Complete Tauri + React desktop app for AI-powered system cleanup. Linux-only. Multi-AI provider support (OpenAI, Gemini, Claude, Kimi). File system analysis, Docker cleanup, package cache management.",
+      "completedAt": "2026-02-14T08:01:56Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:01:56Z] CleanOS AI v0.1.0 built successfully. Binary: 20MB, .deb: 7.1MB, .rpm: 7.1MB"
+      ]
+    },
+    {
+      "id": "T002",
+      "title": "RCSD Research Phase",
+      "status": "done",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T001",
+      "createdAt": "2026-02-14T07:34:09Z",
+      "updatedAt": "2026-02-14T07:39:04Z",
+      "size": "medium",
+      "position": 1,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Research phase for tech stack validation and architecture patterns",
+      "completedAt": "2026-02-14T07:39:04Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T07:39:04Z] Research completed via reading PRD.md, ARCHITECTURE.md, TECHNICAL_SPEC.md"
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T07:39:04Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T003",
+      "title": "Project Foundation Setup",
+      "status": "done",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T001",
+      "createdAt": "2026-02-14T07:34:19Z",
+      "updatedAt": "2026-02-14T07:39:05Z",
+      "size": "medium",
+      "position": 2,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Tauri + React + TypeScript project initialization with all tooling",
+      "depends": [
+        "T002"
+      ],
+      "completedAt": "2026-02-14T07:39:05Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T07:39:05Z] Foundation set up: Tauri v2, React 19, TypeScript, Tailwind v4, Zustand"
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T07:39:05Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T004",
+      "title": "Core Engine Development",
+      "status": "done",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T001",
+      "createdAt": "2026-02-14T07:34:20Z",
+      "updatedAt": "2026-02-14T08:01:36Z",
+      "size": "medium",
+      "position": 3,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "File system scanner, database layer, core Rust backend",
+      "depends": [
+        "T003"
+      ],
+      "completedAt": "2026-02-14T08:01:36Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:01:36Z] Core engine built: filesystem scanner, SQLite database, system info"
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T08:01:36Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T005",
+      "title": "AI Provider Integration",
+      "status": "done",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T001",
+      "createdAt": "2026-02-14T07:34:20Z",
+      "updatedAt": "2026-02-14T08:01:37Z",
+      "size": "medium",
+      "position": 4,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Multi-provider AI system (OpenAI, Gemini, Claude, Kimi)",
+      "depends": [
+        "T003"
+      ],
+      "completedAt": "2026-02-14T08:01:37Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:01:37Z] AI providers: OpenAI, Gemini, Claude, Kimi HTTP clients with auth"
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T08:01:37Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T006",
+      "title": "System Cleanup Tools",
+      "status": "done",
+      "priority": "medium",
+      "type": "task",
+      "parentId": "T001",
+      "createdAt": "2026-02-14T07:34:20Z",
+      "updatedAt": "2026-02-14T08:01:38Z",
+      "size": "medium",
+      "position": 5,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Docker, package cache, logs, kernel, browser cache cleanup",
+      "depends": [
+        "T004"
+      ],
+      "completedAt": "2026-02-14T08:01:38Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:01:38Z] System cleanup: Docker, package caches, logs, kernel modules"
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T08:01:38Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T007",
+      "title": "Desktop UI Implementation",
+      "status": "done",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T001",
+      "createdAt": "2026-02-14T07:34:21Z",
+      "updatedAt": "2026-02-14T08:01:39Z",
+      "size": "medium",
+      "position": 6,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "React UI with dashboard, file browser, settings, dark/light mode",
+      "depends": [
+        "T003"
+      ],
+      "completedAt": "2026-02-14T08:01:39Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:01:39Z] Desktop UI: Dashboard, Files, System Cleanup, Settings implemented"
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T08:01:39Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T008",
+      "title": "Testing and QA",
+      "status": "done",
+      "priority": "medium",
+      "type": "task",
+      "parentId": "T001",
+      "createdAt": "2026-02-14T07:34:21Z",
+      "updatedAt": "2026-02-14T08:01:48Z",
+      "size": "medium",
+      "position": 7,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Unit tests, integration tests, E2E tests",
+      "depends": [
+        "T004",
+        "T005",
+        "T006",
+        "T007"
+      ],
+      "completedAt": "2026-02-14T08:01:48Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:01:48Z] Build verified: TypeScript compiles clean, Rust compiles clean, .deb and .rpm packages generated"
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T08:01:48Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T009",
+      "title": "Documentation and Distribution",
+      "status": "done",
+      "priority": "medium",
+      "type": "task",
+      "parentId": "T001",
+      "createdAt": "2026-02-14T07:34:22Z",
+      "updatedAt": "2026-02-14T08:01:49Z",
+      "size": "medium",
+      "position": 8,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Docs, packaging (.deb, .rpm, AppImage), release prep",
+      "depends": [
+        "T008"
+      ],
+      "completedAt": "2026-02-14T08:01:49Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:01:49Z] Documentation in place: PRD, Architecture, Tech Spec"
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T08:01:49Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T010",
+      "title": "v2026.02 Bug Fixes, CalVer, Auto-Update & CI/CD",
+      "status": "pending",
+      "priority": "critical",
+      "type": "epic",
+      "parentId": null,
+      "createdAt": "2026-02-14T08:23:33Z",
+      "updatedAt": "2026-02-14T08:23:33Z",
+      "size": "medium",
+      "position": 2,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Fix launch bugs, implement CalVer versioning, GitHub Actions CI/CD, in-app auto-update from GitHub releases, and OpenRouter model discovery"
+    },
+    {
+      "id": "T011",
+      "title": "BUG: Sidebar disk usage not calculating",
+      "status": "done",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T08:23:49Z",
+      "updatedAt": "2026-02-14T08:26:03Z",
+      "size": "small",
+      "position": 1,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Disk usage bar in sidebar shows empty. System info not being fetched or values not populating.",
+      "labels": [
+        "bug"
+      ],
+      "completedAt": "2026-02-14T08:26:03Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:26:03Z] Fixed: SystemInfo field names mismatched between Rust (disk_total) and TS (total_disk). Aligned all frontend components."
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T08:26:03Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T012",
+      "title": "BUG: Dashboard total files and storage not calculating",
+      "status": "done",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T08:23:49Z",
+      "updatedAt": "2026-02-14T08:26:04Z",
+      "size": "small",
+      "position": 2,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Stat cards show 0 for total files and 0B for storage used. Scan not running on startup or values not connected.",
+      "labels": [
+        "bug"
+      ],
+      "completedAt": "2026-02-14T08:26:04Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:26:04Z] Fixed: Same field name mismatch causing null values. StorageBreakdown type also aligned."
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T08:26:04Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T013",
+      "title": "BUG: Theme/dark mode colors broken - mixed colors",
+      "status": "done",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T08:23:50Z",
+      "updatedAt": "2026-02-14T08:26:05Z",
+      "size": "medium",
+      "position": 3,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Dark mode changes but not all components use theme correctly. System theme detection doesnt work. Colors are mixed and inconsistent.",
+      "labels": [
+        "bug"
+      ],
+      "completedAt": "2026-02-14T08:26:05Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:26:05Z] Fixed: Added Tailwind v4 custom dark variant. Fixed CSS custom properties for dark mode."
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T08:26:05Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T014",
+      "title": "BUG: AI Chat shows coming soon placeholder",
+      "status": "pending",
+      "priority": "medium",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T08:23:50Z",
+      "updatedAt": "2026-02-14T08:23:50Z",
+      "size": "medium",
+      "position": 4,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "AI Chat view is placeholder. Needs basic chat interface connected to configured AI provider.",
+      "labels": [
+        "bug",
+        "feature"
+      ]
+    },
+    {
+      "id": "T015",
+      "title": "BUG: Provider model versions are outdated/incorrect",
+      "status": "pending",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T08:23:50Z",
+      "updatedAt": "2026-02-14T08:23:50Z",
+      "size": "medium",
+      "position": 5,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Hardcoded model lists are wrong. Use OpenRouter API (GET https://openrouter.ai/api/v1/models) for live model discovery instead of static definitions.",
+      "labels": [
+        "bug"
+      ]
+    },
+    {
+      "id": "T016",
+      "title": "Implement CalVer versioning (YYYY.MM.patch)",
+      "status": "done",
+      "priority": "critical",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T08:23:51Z",
+      "updatedAt": "2026-02-14T08:26:06Z",
+      "size": "small",
+      "position": 6,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Switch from semver 0.1.0 to CalVer 2026.02.0. Update package.json, Cargo.toml, tauri.conf.json.",
+      "labels": [
+        "feature"
+      ],
+      "completedAt": "2026-02-14T08:26:06Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:26:06Z] CalVer 2026.02.0 applied to package.json, Cargo.toml, tauri.conf.json, Settings About page."
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T08:26:06Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T017",
+      "title": "Initialize git repo and push to GitHub",
+      "status": "pending",
+      "priority": "critical",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T08:23:51Z",
+      "updatedAt": "2026-02-14T08:23:51Z",
+      "size": "small",
+      "position": 7,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Init git, create .gitignore, commit all code, create GitHub repo, push.",
+      "labels": [
+        "infra"
+      ]
+    },
+    {
+      "id": "T018",
+      "title": "GitHub Actions CI/CD build pipeline",
+      "status": "pending",
+      "priority": "critical",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T08:23:51Z",
+      "updatedAt": "2026-02-14T08:23:51Z",
+      "size": "medium",
+      "position": 8,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Create .github/workflows for building .deb, .rpm, AppImage on push/tag. Auto-create GitHub releases on version tags.",
+      "labels": [
+        "infra"
+      ]
+    },
+    {
+      "id": "T019",
+      "title": "In-app auto-update from GitHub releases",
+      "status": "pending",
+      "priority": "critical",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T08:23:52Z",
+      "updatedAt": "2026-02-14T08:23:52Z",
+      "size": "large",
+      "position": 9,
+      "positionVersion": 0,
+      "phase": "setup",
+      "description": "Tauri updater plugin integration. Check GitHub releases for new versions. Show update notification in app. Download and install update. Version comparison using CalVer.",
+      "labels": [
+        "feature"
+      ]
+    }
+  ],
+  "labels": {}
+}

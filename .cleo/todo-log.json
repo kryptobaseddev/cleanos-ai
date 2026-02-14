@@ -1,0 +1,688 @@
+{
+  "$schema": "./schemas/log.schema.json",
+  "version": "2.4.0",
+  "project": "cleanos-ai",
+  "_meta": {
+    "schemaVersion": "2.4.0",
+    "totalEntries": 28,
+    "firstEntry": "2026-02-14T07:07:07Z",
+    "lastEntry": "2026-02-14T08:26:07Z",
+    "entriesPruned": 0
+  },
+  "entries": [
+    {
+      "id": "log_0706bea1840d",
+      "timestamp": "2026-02-14T07:07:07Z",
+      "sessionId": null,
+      "action": "system_initialized",
+      "actor": "system",
+      "taskId": null,
+      "before": null,
+      "after": null,
+      "details": "CLEO system initialized for project: cleanos-ai"
+    },
+    {
+      "id": "log-1771054435-3a29fd",
+      "timestamp": "2026-02-14T07:33:55Z",
+      "action": "task_created",
+      "taskId": "T001",
+      "actor": "system",
+      "details": {
+        "title": "System Cleanup AI Desktop App",
+        "status": "pending",
+        "priority": "critical"
+      },
+      "before": null,
+      "after": {
+        "title": "System Cleanup AI Desktop App",
+        "status": "pending",
+        "priority": "critical"
+      }
+    },
+    {
+      "id": "log_c86d88d340a7",
+      "timestamp": "2026-02-14T07:33:59Z",
+      "sessionId": "session_20260213_233359_206651",
+      "action": "session_start",
+      "actor": "system",
+      "taskId": null,
+      "before": null,
+      "after": null,
+      "details": "Session started"
+    },
+    {
+      "id": "log_7b61cb68f60c",
+      "timestamp": "2026-02-14T07:34:04Z",
+      "sessionId": "session_20260213_233359_206651",
+      "action": "focus_changed",
+      "actor": "claude",
+      "taskId": null,
+      "before": null,
+      "after": {
+        "currentTask": "T001"
+      },
+      "details": null
+    },
+    {
+      "id": "log-1771054449-585ea4",
+      "timestamp": "2026-02-14T07:34:09Z",
+      "action": "task_created",
+      "taskId": "T002",
+      "actor": "system",
+      "details": {
+        "title": "RCSD Research Phase",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "RCSD Research Phase",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771054459-ce2c50",
+      "timestamp": "2026-02-14T07:34:19Z",
+      "action": "task_created",
+      "taskId": "T003",
+      "actor": "system",
+      "details": {
+        "title": "Project Foundation Setup",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "Project Foundation Setup",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771054460-284dac",
+      "timestamp": "2026-02-14T07:34:20Z",
+      "action": "task_created",
+      "taskId": "T004",
+      "actor": "system",
+      "details": {
+        "title": "Core Engine Development",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "Core Engine Development",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771054460-970990",
+      "timestamp": "2026-02-14T07:34:20Z",
+      "action": "task_created",
+      "taskId": "T005",
+      "actor": "system",
+      "details": {
+        "title": "AI Provider Integration",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "AI Provider Integration",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771054461-e9bdae",
+      "timestamp": "2026-02-14T07:34:21Z",
+      "action": "task_created",
+      "taskId": "T006",
+      "actor": "system",
+      "details": {
+        "title": "System Cleanup Tools",
+        "status": "pending",
+        "priority": "medium"
+      },
+      "before": null,
+      "after": {
+        "title": "System Cleanup Tools",
+        "status": "pending",
+        "priority": "medium"
+      }
+    },
+    {
+      "id": "log-1771054461-38eaf1",
+      "timestamp": "2026-02-14T07:34:21Z",
+      "action": "task_created",
+      "taskId": "T007",
+      "actor": "system",
+      "details": {
+        "title": "Desktop UI Implementation",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "Desktop UI Implementation",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771054461-266143",
+      "timestamp": "2026-02-14T07:34:21Z",
+      "action": "task_created",
+      "taskId": "T008",
+      "actor": "system",
+      "details": {
+        "title": "Testing and QA",
+        "status": "pending",
+        "priority": "medium"
+      },
+      "before": null,
+      "after": {
+        "title": "Testing and QA",
+        "status": "pending",
+        "priority": "medium"
+      }
+    },
+    {
+      "id": "log-1771054462-d9b13e",
+      "timestamp": "2026-02-14T07:34:22Z",
+      "action": "task_created",
+      "taskId": "T009",
+      "actor": "system",
+      "details": {
+        "title": "Documentation and Distribution",
+        "status": "pending",
+        "priority": "medium"
+      },
+      "before": null,
+      "after": {
+        "title": "Documentation and Distribution",
+        "status": "pending",
+        "priority": "medium"
+      }
+    },
+    {
+      "id": "log_1ee6453780e0",
+      "timestamp": "2026-02-14T07:39:04Z",
+      "sessionId": "session_20260213_233359_206651",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T002",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T07:39:04Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_475b4015b313",
+      "timestamp": "2026-02-14T07:39:05Z",
+      "sessionId": "session_20260213_233359_206651",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T003",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T07:39:05Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_a96ae9ddd838",
+      "timestamp": "2026-02-14T08:01:37Z",
+      "sessionId": "session_20260213_233359_206651",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T004",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:01:36Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_7da5be61eda9",
+      "timestamp": "2026-02-14T08:01:38Z",
+      "sessionId": "session_20260213_233359_206651",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T005",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:01:37Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_08ee43e573d0",
+      "timestamp": "2026-02-14T08:01:39Z",
+      "sessionId": "session_20260213_233359_206651",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T006",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:01:38Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_061248d6adea",
+      "timestamp": "2026-02-14T08:01:40Z",
+      "sessionId": "session_20260213_233359_206651",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T007",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:01:39Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_c44da5951424",
+      "timestamp": "2026-02-14T08:01:49Z",
+      "sessionId": "session_20260213_233359_206651",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T008",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:01:48Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_8fbfaacc19aa",
+      "timestamp": "2026-02-14T08:01:50Z",
+      "sessionId": "session_20260213_233359_206651",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T009",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:01:49Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_a73e9fcb7f91",
+      "timestamp": "2026-02-14T08:01:56Z",
+      "sessionId": "session_20260213_233359_206651",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T001",
+      "before": {
+        "status": "active",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:01:56Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_e4fcd3642314",
+      "timestamp": "2026-02-14T08:02:11Z",
+      "sessionId": "session_20260213_233359_206651",
+      "action": "session_end",
+      "actor": "system",
+      "taskId": null,
+      "before": null,
+      "after": null,
+      "details": {
+        "note": "CleanOS AI v0.1.0 build complete. Epic T001 done."
+      }
+    },
+    {
+      "id": "log_77f7a76052aa",
+      "timestamp": "2026-02-14T08:23:25Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "session_start",
+      "actor": "system",
+      "taskId": null,
+      "before": null,
+      "after": null,
+      "details": "Session started"
+    },
+    {
+      "id": "log-1771057413-fabb82",
+      "timestamp": "2026-02-14T08:23:33Z",
+      "action": "task_created",
+      "taskId": "T010",
+      "actor": "system",
+      "details": {
+        "title": "v2026.02 Bug Fixes, CalVer, Auto-Update & CI/CD",
+        "status": "pending",
+        "priority": "critical"
+      },
+      "before": null,
+      "after": {
+        "title": "v2026.02 Bug Fixes, CalVer, Auto-Update & CI/CD",
+        "status": "pending",
+        "priority": "critical"
+      }
+    },
+    {
+      "id": "log-1771057429-54cab7",
+      "timestamp": "2026-02-14T08:23:49Z",
+      "action": "task_created",
+      "taskId": "T011",
+      "actor": "system",
+      "details": {
+        "title": "BUG: Sidebar disk usage not calculating",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: Sidebar disk usage not calculating",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771057429-d7ce0a",
+      "timestamp": "2026-02-14T08:23:49Z",
+      "action": "task_created",
+      "taskId": "T012",
+      "actor": "system",
+      "details": {
+        "title": "BUG: Dashboard total files and storage not calculating",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: Dashboard total files and storage not calculating",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771057430-bcb6a4",
+      "timestamp": "2026-02-14T08:23:50Z",
+      "action": "task_created",
+      "taskId": "T013",
+      "actor": "system",
+      "details": {
+        "title": "BUG: Theme/dark mode colors broken - mixed colors",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: Theme/dark mode colors broken - mixed colors",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771057430-a81c02",
+      "timestamp": "2026-02-14T08:23:50Z",
+      "action": "task_created",
+      "taskId": "T014",
+      "actor": "system",
+      "details": {
+        "title": "BUG: AI Chat shows coming soon placeholder",
+        "status": "pending",
+        "priority": "medium"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: AI Chat shows coming soon placeholder",
+        "status": "pending",
+        "priority": "medium"
+      }
+    },
+    {
+      "id": "log-1771057430-849a78",
+      "timestamp": "2026-02-14T08:23:50Z",
+      "action": "task_created",
+      "taskId": "T015",
+      "actor": "system",
+      "details": {
+        "title": "BUG: Provider model versions are outdated/incorrect",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: Provider model versions are outdated/incorrect",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771057431-996436",
+      "timestamp": "2026-02-14T08:23:51Z",
+      "action": "task_created",
+      "taskId": "T016",
+      "actor": "system",
+      "details": {
+        "title": "Implement CalVer versioning (YYYY.MM.patch)",
+        "status": "pending",
+        "priority": "critical"
+      },
+      "before": null,
+      "after": {
+        "title": "Implement CalVer versioning (YYYY.MM.patch)",
+        "status": "pending",
+        "priority": "critical"
+      }
+    },
+    {
+      "id": "log-1771057431-9ecc68",
+      "timestamp": "2026-02-14T08:23:51Z",
+      "action": "task_created",
+      "taskId": "T017",
+      "actor": "system",
+      "details": {
+        "title": "Initialize git repo and push to GitHub",
+        "status": "pending",
+        "priority": "critical"
+      },
+      "before": null,
+      "after": {
+        "title": "Initialize git repo and push to GitHub",
+        "status": "pending",
+        "priority": "critical"
+      }
+    },
+    {
+      "id": "log-1771057432-77e710",
+      "timestamp": "2026-02-14T08:23:52Z",
+      "action": "task_created",
+      "taskId": "T018",
+      "actor": "system",
+      "details": {
+        "title": "GitHub Actions CI/CD build pipeline",
+        "status": "pending",
+        "priority": "critical"
+      },
+      "before": null,
+      "after": {
+        "title": "GitHub Actions CI/CD build pipeline",
+        "status": "pending",
+        "priority": "critical"
+      }
+    },
+    {
+      "id": "log-1771057432-bace81",
+      "timestamp": "2026-02-14T08:23:52Z",
+      "action": "task_created",
+      "taskId": "T019",
+      "actor": "system",
+      "details": {
+        "title": "In-app auto-update from GitHub releases",
+        "status": "pending",
+        "priority": "critical"
+      },
+      "before": null,
+      "after": {
+        "title": "In-app auto-update from GitHub releases",
+        "status": "pending",
+        "priority": "critical"
+      }
+    },
+    {
+      "id": "log_4828b4674d11",
+      "timestamp": "2026-02-14T08:23:58Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "focus_changed",
+      "actor": "claude",
+      "taskId": null,
+      "before": null,
+      "after": {
+        "currentTask": "T011"
+      },
+      "details": null
+    },
+    {
+      "id": "log_ee9d8546bb43",
+      "timestamp": "2026-02-14T08:26:04Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T011",
+      "before": {
+        "status": "active",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:26:03Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_04d7e6d61b66",
+      "timestamp": "2026-02-14T08:26:05Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T012",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:26:04Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_8ed384166ea7",
+      "timestamp": "2026-02-14T08:26:06Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T013",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:26:05Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_922b6388712c",
+      "timestamp": "2026-02-14T08:26:07Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T016",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:26:06Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    }
+  ]
+}

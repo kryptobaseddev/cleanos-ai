@@ -1,0 +1,20 @@
+{
+  "$schema": "./schemas/sessions.schema.json",
+  "version": "1.0.0",
+  "project": "cleanos-ai",
+  "_meta": {
+    "schemaVersion": "1.0.0",
+    "checksum": "",
+    "lastModified": "2026-02-14T07:07:07Z",
+    "totalSessionsCreated": 0
+  },
+  "config": {
+    "maxConcurrentSessions": 5,
+    "maxActiveTasksPerScope": 1,
+    "scopeValidation": "strict",
+    "allowNestedScopes": true,
+    "allowScopeOverlap": false
+  },
+  "sessions": [],
+  "sessionHistory": []
+}

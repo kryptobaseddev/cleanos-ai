@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+src-tauri/target/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+
+# CLEO internal
+.cleo/backups/
+.cleo/sessions/
+.cleo/logs/
+
+# Test coverage
+coverage/
+
+# Tauri build artifacts
+src-tauri/gen/

@@ -1,0 +1,73 @@
+{
+  "project": "CleanOS AI",
+  "epic": "T009",
+  "status": "Ready for Development",
+  "tasks_created": 58,
+  "phases": [
+    {
+      "phase": 1,
+      "task_id": "T010",
+      "name": "RCSD Research Phase",
+      "subtasks": ["T018", "T019", "T020", "T021", "T022"],
+      "status": "Pending"
+    },
+    {
+      "phase": 2,
+      "task_id": "T011",
+      "name": "Project Foundation Setup",
+      "subtasks": ["T023", "T024", "T025", "T026", "T027", "T028"],
+      "status": "Pending"
+    },
+    {
+      "phase": 3,
+      "task_id": "T012",
+      "name": "Core Engine Development",
+      "subtasks": ["T029", "T030", "T031", "T032", "T033"],
+      "status": "Pending"
+    },
+    {
+      "phase": 4,
+      "task_id": "T013",
+      "name": "AI Provider Integration",
+      "subtasks": ["T034", "T035", "T036", "T037", "T038", "T039", "T040", "T041"],
+      "status": "Pending"
+    },
+    {
+      "phase": 5,
+      "task_id": "T014",
+      "name": "System Cleanup Tools",
+      "subtasks": ["T042", "T043", "T044", "T045", "T046", "T047"],
+      "status": "Pending"
+    },
+    {
+      "phase": 6,
+      "task_id": "T015",
+      "name": "Desktop UI Implementation",
+      "subtasks": ["T048", "T049", "T050", "T051", "T052", "T053", "T054"],
+      "status": "Pending"
+    },
+    {
+      "phase": 7,
+      "task_id": "T016",
+      "name": "Testing and QA",
+      "subtasks": ["T055", "T056", "T057", "T058", "T059", "T060"],
+      "status": "Pending"
+    },
+    {
+      "phase": 8,
+      "task_id": "T017",
+      "name": "Documentation and Distribution",
+      "subtasks": ["T061", "T062", "T063", "T064", "T065", "T066"],
+      "status": "Pending"
+    }
+  ],
+  "documentation": {
+    "prd": "docs/PRD.md",
+    "architecture": "docs/ARCHITECTURE.md",
+    "technical_spec": "docs/TECHNICAL_SPEC.md",
+    "agent_prompt": "AGENT_SYSTEM_PROMPT.md",
+    "agent_quickref": "AGENT_QUICKREF.md"
+  },
+  "reference": "/mnt/projects/opencode-reference",
+  "ready_to_start": true
+}
