@@ -47,18 +47,18 @@
       }
     }
   },
-  "lastUpdated": "2026-02-14T09:05:18Z",
+  "lastUpdated": "2026-02-14T09:18:53Z",
   "_meta": {
     "schemaVersion": "2.10.0",
-    "checksum": "9eebce48074c0894",
+    "checksum": "9c0e76e342ed5609",
     "configVersion": "2.10.0",
     "lastSessionId": null,
     "activeSession": "session_20260214_002325_816e5f",
-    "generation": 40,
-    "lastModified": "2026-02-14T08:23:58Z"
+    "generation": 42,
+    "lastModified": "2026-02-14T09:21:29Z"
   },
   "focus": {
-    "currentTask": null,
+    "currentTask": "T032",
     "currentPhase": "setup",
     "blockedUntil": null,
     "sessionNote": "CleanOS AI v0.1.0 build complete. Epic T001 done.",
@@ -898,7 +898,271 @@
         "2026-02-14 09:05:13 UTC: FIXED: App crashed on launch with 'Error 71 (Protocol error) dispatching to Wayland display'. Cause: WebKitGTK DMA-BUF renderer incompatibility on Fedora/Wayland/GNOME. Fix: Set WEBKIT_DISABLE_DMABUF_RENDERER=1 in lib.rs before Tauri init. Rebuilt and reinstalled RPM - app now launches correctly.",
         "[COMPLETED 2026-02-14T09:05:18Z] Fixed in lib.rs. Set WEBKIT_DISABLE_DMABUF_RENDERER=1 env var before Tauri init. RPM rebuilt and reinstalled. App launches and stays open on Wayland."
       ],
-      "completedAt": "2026-02-14T09:05:18Z"
+      "completedAt": "2026-02-14T09:05:18Z",
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T09:05:18Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T030",
+      "title": "Add persistent version + system info bar across all screens",
+      "status": "pending",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:18:21Z",
+      "updatedAt": "2026-02-14T09:18:21Z",
+      "size": "medium",
+      "position": 20,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "feature",
+        "ui"
+      ],
+      "notes": [
+        "2026-02-14 09:18:21 UTC: No version number visible in sidebar or bottom bar. Need a persistent bottom appbar or sidebar footer showing: current version (from getCurrentVersion), system info (disk usage, OS), and any dynamic status. Should be visible across all screens."
+      ]
+    },
+    {
+      "id": "T031",
+      "title": "BUG: Check for Updates throws error in Settings",
+      "status": "pending",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:18:23Z",
+      "updatedAt": "2026-02-14T09:18:23Z",
+      "size": "medium",
+      "position": 21,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug"
+      ],
+      "depends": [
+        "T020",
+        "T021",
+        "T022"
+      ],
+      "notes": [
+        "2026-02-14 09:18:23 UTC: Settings > Updates > Check for Updates button shows 'Failed to check for updates' error. Root cause: updater endpoint URL points to nonexistent GitHub release (T020 wrong URL, T022 no release exists). The updater pubkey is also empty (T021). This is expected to fail until T020/T021/T022 are resolved but the error message should be more user-friendly."
+      ]
+    },
+    {
+      "id": "T032",
+      "title": "BUG: Dashboard Total Files and Storage shows 0, Scan Now non-functional",
+      "status": "active",
+      "priority": "critical",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:18:24Z",
+      "updatedAt": "2026-02-14T09:18:24Z",
+      "size": "medium",
+      "position": 22,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug"
+      ],
+      "notes": [
+        "2026-02-14 09:18:24 UTC: Dashboard shows Total Files: 0 and Storage Used: 0. Scan Now button does nothing when clicked. Need to: 1) Wire up Scan Now button to trigger scanDirectory command 2) Store scan results and update dashboard stats 3) Show meaningful defaults or prompt before first scan."
+      ]
+    },
+    {
+      "id": "T033",
+      "title": "BUG: Files tab directory input not functional, Scan Directory broken",
+      "status": "pending",
+      "priority": "critical",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:18:25Z",
+      "updatedAt": "2026-02-14T09:18:25Z",
+      "size": "medium",
+      "position": 23,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug",
+        "ui"
+      ],
+      "notes": [
+        "2026-02-14 09:18:25 UTC: Files tab: 1) The ~ path input doesnt open a directory picker/browser - not intuitive for users 2) Scan Directory button does nothing when clicked 3) Need native directory picker dialog (Tauri dialog plugin) 4) Should show file browser after scan completes."
+      ]
+    },
+    {
+      "id": "T034",
+      "title": "BUG: System Cleanup tab shows no data - depends on scan",
+      "status": "pending",
+      "priority": "medium",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:18:27Z",
+      "updatedAt": "2026-02-14T09:18:27Z",
+      "size": "medium",
+      "position": 24,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug"
+      ],
+      "notes": [
+        "2026-02-14 09:18:27 UTC: System Cleanup tab appears empty/non-actionable. May be because no scan has been done. Need to: 1) Clarify dependency on scan vs independent system analysis 2) If independent, wire up system cleanup commands 3) Show helpful empty state explaining what to do."
+      ]
+    },
+    {
+      "id": "T035",
+      "title": "BUG: System Cleanup Docker tab empty - not loading containers/images",
+      "status": "pending",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:18:28Z",
+      "updatedAt": "2026-02-14T09:18:28Z",
+      "size": "medium",
+      "position": 25,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug"
+      ],
+      "notes": [
+        "2026-02-14 09:18:28 UTC: System Cleanup > Docker tab shows nothing. The get_docker_info command exists in commands.rs but the frontend may not be calling it or handling the response. Need to: 1) Check if Docker is installed on system 2) Call getDockerInfo on tab mount 3) Display containers, images, volumes with cleanup actions."
+      ]
+    },
+    {
+      "id": "T036",
+      "title": "BUG: System Cleanup Package Caches tab empty",
+      "status": "pending",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:18:46Z",
+      "updatedAt": "2026-02-14T09:18:46Z",
+      "size": "medium",
+      "position": 26,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug"
+      ],
+      "notes": [
+        "2026-02-14 09:18:46 UTC: System Cleanup > Package Caches tab shows nothing. Backend has get_package_caches and clean_package_cache commands in commands.rs. Frontend needs to call getPackageCaches on tab mount and display cache sizes with cleanup actions."
+      ]
+    },
+    {
+      "id": "T037",
+      "title": "BUG: System Cleanup Logs tab empty",
+      "status": "pending",
+      "priority": "medium",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:18:47Z",
+      "updatedAt": "2026-02-14T09:18:47Z",
+      "size": "medium",
+      "position": 27,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug"
+      ],
+      "notes": [
+        "2026-02-14 09:18:47 UTC: System Cleanup > Logs tab shows nothing. May need backend command to scan system logs (/var/log, journald) and frontend to display with cleanup options."
+      ]
+    },
+    {
+      "id": "T038",
+      "title": "BUG: System Cleanup Browser Caches tab empty",
+      "status": "pending",
+      "priority": "medium",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:18:49Z",
+      "updatedAt": "2026-02-14T09:18:49Z",
+      "size": "medium",
+      "position": 28,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug"
+      ],
+      "notes": [
+        "2026-02-14 09:18:49 UTC: System Cleanup > Browser Caches tab shows nothing. Need to implement browser cache detection for common browsers (Chrome, Firefox, etc) and display sizes with cleanup actions."
+      ]
+    },
+    {
+      "id": "T039",
+      "title": "BUG: API key not saving/persisting in Settings",
+      "status": "pending",
+      "priority": "critical",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:18:50Z",
+      "updatedAt": "2026-02-14T09:18:50Z",
+      "size": "medium",
+      "position": 29,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug"
+      ],
+      "notes": [
+        "2026-02-14 09:18:50 UTC: Settings > AI Providers: entering an API key and saving does not persist. Key disappears on revisit. Backend uses keyring crate for credential storage (credentials.rs). Need to verify: 1) storeApiKey command is being called on save 2) keyring service is accessible 3) getApiKey/hasApiKey work on reload."
+      ]
+    },
+    {
+      "id": "T040",
+      "title": "BUG: Settings Add/Remove directory buttons non-functional",
+      "status": "pending",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:18:51Z",
+      "updatedAt": "2026-02-14T09:18:51Z",
+      "size": "medium",
+      "position": 30,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug",
+        "ui"
+      ],
+      "notes": [
+        "2026-02-14 09:18:51 UTC: Settings > General > Scan Directories: 1) Add directory button does nothing 2) Remove button on existing directories does nothing 3) Directories are hardcoded as ~/Documents, ~/Downloads, ~/Desktop 4) Need to wire up to settings storage (get_setting/set_setting) and add native directory picker."
+      ]
+    },
+    {
+      "id": "T041",
+      "title": "BUG: Theme detection broken - Light mode despite system dark mode, title bar doesn't follow theme",
+      "status": "pending",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:18:53Z",
+      "updatedAt": "2026-02-14T09:18:53Z",
+      "size": "medium",
+      "position": 31,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug",
+        "ui"
+      ],
+      "notes": [
+        "2026-02-14 09:18:53 UTC: System theme detection not working: 1) App defaults to light mode even when system is in dark mode 2) Title bar/window decorations do not follow the app theme toggle 3) Need to detect system preference via prefers-color-scheme media query or Tauri theme API 4) Title bar theme requires Tauri window theme configuration."
+      ]
     }
   ],
   "labels": {}

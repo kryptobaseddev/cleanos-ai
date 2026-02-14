@@ -4,9 +4,9 @@
   "project": "cleanos-ai",
   "_meta": {
     "schemaVersion": "2.4.0",
-    "totalEntries": 32,
+    "totalEntries": 33,
     "firstEntry": "2026-02-14T07:07:07Z",
-    "lastEntry": "2026-02-14T08:59:40Z",
+    "lastEntry": "2026-02-14T09:05:19Z",
     "entriesPruned": 0
   },
   "entries": [
@@ -961,6 +961,242 @@
         "title": "BUG: App crashes immediately on Wayland (WebKitGTK DMA-BUF)",
         "status": "pending",
         "priority": "critical"
+      }
+    },
+    {
+      "id": "log_1b0d1fb6f413",
+      "timestamp": "2026-02-14T09:05:19Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T029",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T09:05:18Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log-1771060701-a9dfdf",
+      "timestamp": "2026-02-14T09:18:21Z",
+      "action": "task_created",
+      "taskId": "T030",
+      "actor": "system",
+      "details": {
+        "title": "Add persistent version + system info bar across all screens",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "Add persistent version + system info bar across all screens",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771060703-913e26",
+      "timestamp": "2026-02-14T09:18:23Z",
+      "action": "task_created",
+      "taskId": "T031",
+      "actor": "system",
+      "details": {
+        "title": "BUG: Check for Updates throws error in Settings",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: Check for Updates throws error in Settings",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771060704-1fe6af",
+      "timestamp": "2026-02-14T09:18:24Z",
+      "action": "task_created",
+      "taskId": "T032",
+      "actor": "system",
+      "details": {
+        "title": "BUG: Dashboard Total Files and Storage shows 0, Scan Now non-functional",
+        "status": "pending",
+        "priority": "critical"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: Dashboard Total Files and Storage shows 0, Scan Now non-functional",
+        "status": "pending",
+        "priority": "critical"
+      }
+    },
+    {
+      "id": "log-1771060705-f4406c",
+      "timestamp": "2026-02-14T09:18:25Z",
+      "action": "task_created",
+      "taskId": "T033",
+      "actor": "system",
+      "details": {
+        "title": "BUG: Files tab directory input not functional, Scan Directory broken",
+        "status": "pending",
+        "priority": "critical"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: Files tab directory input not functional, Scan Directory broken",
+        "status": "pending",
+        "priority": "critical"
+      }
+    },
+    {
+      "id": "log-1771060707-565e72",
+      "timestamp": "2026-02-14T09:18:27Z",
+      "action": "task_created",
+      "taskId": "T034",
+      "actor": "system",
+      "details": {
+        "title": "BUG: System Cleanup tab shows no data - depends on scan",
+        "status": "pending",
+        "priority": "medium"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: System Cleanup tab shows no data - depends on scan",
+        "status": "pending",
+        "priority": "medium"
+      }
+    },
+    {
+      "id": "log-1771060708-2f443b",
+      "timestamp": "2026-02-14T09:18:28Z",
+      "action": "task_created",
+      "taskId": "T035",
+      "actor": "system",
+      "details": {
+        "title": "BUG: System Cleanup Docker tab empty - not loading containers/images",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: System Cleanup Docker tab empty - not loading containers/images",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771060726-99a2b7",
+      "timestamp": "2026-02-14T09:18:46Z",
+      "action": "task_created",
+      "taskId": "T036",
+      "actor": "system",
+      "details": {
+        "title": "BUG: System Cleanup Package Caches tab empty",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: System Cleanup Package Caches tab empty",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771060727-879297",
+      "timestamp": "2026-02-14T09:18:47Z",
+      "action": "task_created",
+      "taskId": "T037",
+      "actor": "system",
+      "details": {
+        "title": "BUG: System Cleanup Logs tab empty",
+        "status": "pending",
+        "priority": "medium"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: System Cleanup Logs tab empty",
+        "status": "pending",
+        "priority": "medium"
+      }
+    },
+    {
+      "id": "log-1771060729-a055a8",
+      "timestamp": "2026-02-14T09:18:49Z",
+      "action": "task_created",
+      "taskId": "T038",
+      "actor": "system",
+      "details": {
+        "title": "BUG: System Cleanup Browser Caches tab empty",
+        "status": "pending",
+        "priority": "medium"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: System Cleanup Browser Caches tab empty",
+        "status": "pending",
+        "priority": "medium"
+      }
+    },
+    {
+      "id": "log-1771060730-a4a40f",
+      "timestamp": "2026-02-14T09:18:50Z",
+      "action": "task_created",
+      "taskId": "T039",
+      "actor": "system",
+      "details": {
+        "title": "BUG: API key not saving/persisting in Settings",
+        "status": "pending",
+        "priority": "critical"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: API key not saving/persisting in Settings",
+        "status": "pending",
+        "priority": "critical"
+      }
+    },
+    {
+      "id": "log-1771060732-c2080f",
+      "timestamp": "2026-02-14T09:18:52Z",
+      "action": "task_created",
+      "taskId": "T040",
+      "actor": "system",
+      "details": {
+        "title": "BUG: Settings Add/Remove directory buttons non-functional",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: Settings Add/Remove directory buttons non-functional",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771060733-0f958f",
+      "timestamp": "2026-02-14T09:18:53Z",
+      "action": "task_created",
+      "taskId": "T041",
+      "actor": "system",
+      "details": {
+        "title": "BUG: Theme detection broken - Light mode despite system dark mode, title bar doesn't follow theme",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: Theme detection broken - Light mode despite system dark mode, title bar doesn't follow theme",
+        "status": "pending",
+        "priority": "high"
       }
     }
   ]
