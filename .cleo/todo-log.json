@@ -4,9 +4,9 @@
   "project": "cleanos-ai",
   "_meta": {
     "schemaVersion": "2.4.0",
-    "totalEntries": 33,
+    "totalEntries": 34,
     "firstEntry": "2026-02-14T07:07:07Z",
-    "lastEntry": "2026-02-14T09:05:19Z",
+    "lastEntry": "2026-02-14T09:21:29Z",
     "entriesPruned": 0
   },
   "entries": [
@@ -1198,6 +1198,19 @@
         "status": "pending",
         "priority": "high"
       }
+    },
+    {
+      "id": "log_982514ed71f7",
+      "timestamp": "2026-02-14T09:21:29Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "focus_changed",
+      "actor": "claude",
+      "taskId": null,
+      "before": null,
+      "after": {
+        "currentTask": "T032"
+      },
+      "details": null
     }
   ]
 }

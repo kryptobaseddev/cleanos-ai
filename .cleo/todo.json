@@ -47,14 +47,14 @@
       }
     }
   },
-  "lastUpdated": "2026-02-14T09:18:53Z",
+  "lastUpdated": "2026-02-14T09:34:45Z",
   "_meta": {
     "schemaVersion": "2.10.0",
-    "checksum": "9c0e76e342ed5609",
+    "checksum": "ade07e7bd3704881",
     "configVersion": "2.10.0",
     "lastSessionId": null,
     "activeSession": "session_20260214_002325_816e5f",
-    "generation": 42,
+    "generation": 43,
     "lastModified": "2026-02-14T09:21:29Z"
   },
   "focus": {
@@ -964,12 +964,12 @@
     {
       "id": "T032",
       "title": "BUG: Dashboard Total Files and Storage shows 0, Scan Now non-functional",
-      "status": "active",
+      "status": "done",
       "priority": "critical",
       "type": "task",
       "parentId": "T010",
       "createdAt": "2026-02-14T09:18:24Z",
-      "updatedAt": "2026-02-14T09:18:24Z",
+      "updatedAt": "2026-02-14T09:34:45Z",
       "size": "medium",
       "position": 22,
       "positionVersion": 0,
@@ -978,8 +978,10 @@
         "bug"
       ],
       "notes": [
-        "2026-02-14 09:18:24 UTC: Dashboard shows Total Files: 0 and Storage Used: 0. Scan Now button does nothing when clicked. Need to: 1) Wire up Scan Now button to trigger scanDirectory command 2) Store scan results and update dashboard stats 3) Show meaningful defaults or prompt before first scan."
-      ]
+        "2026-02-14 09:18:24 UTC: Dashboard shows Total Files: 0 and Storage Used: 0. Scan Now button does nothing when clicked. Need to: 1) Wire up Scan Now button to trigger scanDirectory command 2) Store scan results and update dashboard stats 3) Show meaningful defaults or prompt before first scan.",
+        "[COMPLETED 2026-02-14T09:34:45Z] Fixed: Dashboard Scan Now button now has onClick handler. Scans ~/Documents, ~/Downloads, ~/Desktop in parallel using Promise.allSettled. Merges results into store. Uses homeDir() from Tauri API to resolve ~ paths."
+      ],
+      "completedAt": "2026-02-14T09:34:45Z"
     },
     {
       "id": "T033",
