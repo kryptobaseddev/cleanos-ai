@@ -4,9 +4,9 @@
   "project": "cleanos-ai",
   "_meta": {
     "schemaVersion": "2.4.0",
-    "totalEntries": 28,
+    "totalEntries": 32,
     "firstEntry": "2026-02-14T07:07:07Z",
-    "lastEntry": "2026-02-14T08:26:07Z",
+    "lastEntry": "2026-02-14T08:59:40Z",
     "entriesPruned": 0
   },
   "entries": [
@@ -682,6 +682,285 @@
       "details": {
         "field": "status",
         "operation": "complete"
+      }
+    },
+    {
+      "id": "log_0135ef4c14f7",
+      "timestamp": "2026-02-14T08:59:08Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T015",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:59:07Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_69f0943167cc",
+      "timestamp": "2026-02-14T08:59:18Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T019",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:59:18Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_d37b47a97d5c",
+      "timestamp": "2026-02-14T08:59:25Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "task_updated",
+      "actor": "system",
+      "taskId": "T016",
+      "before": {
+        "title": "Implement CalVer versioning (YYYY.MM.patch)",
+        "status": "done",
+        "priority": "critical",
+        "description": "Switch from semver 0.1.0 to CalVer 2026.02.0. Update package.json, Cargo.toml, tauri.conf.json.",
+        "phase": "setup",
+        "labels": [
+          "feature"
+        ],
+        "files": null,
+        "acceptance": null,
+        "depends": null,
+        "blockedBy": null
+      },
+      "after": {
+        "title": "Implement CalVer versioning (YYYY.MM.patch)",
+        "status": "done",
+        "priority": "critical",
+        "description": "Switch from semver 0.1.0 to CalVer 2026.02.0. Update package.json, Cargo.toml, tauri.conf.json.",
+        "phase": "setup",
+        "labels": [
+          "feature"
+        ],
+        "files": null,
+        "acceptance": null,
+        "depends": null,
+        "blockedBy": null
+      },
+      "details": {
+        "operation": "update"
+      }
+    },
+    {
+      "id": "log_5f7482e1ae42",
+      "timestamp": "2026-02-14T08:59:40Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T017",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T08:59:40Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log-1771059588-bff5bb",
+      "timestamp": "2026-02-14T08:59:48Z",
+      "action": "task_created",
+      "taskId": "T020",
+      "actor": "system",
+      "details": {
+        "title": "BUG: Updater endpoint URL points to wrong GitHub user",
+        "status": "pending",
+        "priority": "critical"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: Updater endpoint URL points to wrong GitHub user",
+        "status": "pending",
+        "priority": "critical"
+      }
+    },
+    {
+      "id": "log-1771059595-157d4a",
+      "timestamp": "2026-02-14T08:59:55Z",
+      "action": "task_created",
+      "taskId": "T021",
+      "actor": "system",
+      "details": {
+        "title": "Updater pubkey is empty - blocks production updates",
+        "status": "pending",
+        "priority": "critical"
+      },
+      "before": null,
+      "after": {
+        "title": "Updater pubkey is empty - blocks production updates",
+        "status": "pending",
+        "priority": "critical"
+      }
+    },
+    {
+      "id": "log-1771059602-93cd92",
+      "timestamp": "2026-02-14T09:00:02Z",
+      "action": "task_created",
+      "taskId": "T022",
+      "actor": "system",
+      "details": {
+        "title": "No GitHub release or latest.json exists for updater",
+        "status": "pending",
+        "priority": "critical"
+      },
+      "before": null,
+      "after": {
+        "title": "No GitHub release or latest.json exists for updater",
+        "status": "pending",
+        "priority": "critical"
+      }
+    },
+    {
+      "id": "log-1771059609-72b6cc",
+      "timestamp": "2026-02-14T09:00:09Z",
+      "action": "task_created",
+      "taskId": "T023",
+      "actor": "system",
+      "details": {
+        "title": "AppImage bundler fails - linuxdeploy discovery issue",
+        "status": "pending",
+        "priority": "medium"
+      },
+      "before": null,
+      "after": {
+        "title": "AppImage bundler fails - linuxdeploy discovery issue",
+        "status": "pending",
+        "priority": "medium"
+      }
+    },
+    {
+      "id": "log-1771059616-252d86",
+      "timestamp": "2026-02-14T09:00:16Z",
+      "action": "task_created",
+      "taskId": "T024",
+      "actor": "system",
+      "details": {
+        "title": "Duplicate dependencies in .deb package metadata",
+        "status": "pending",
+        "priority": "low"
+      },
+      "before": null,
+      "after": {
+        "title": "Duplicate dependencies in .deb package metadata",
+        "status": "pending",
+        "priority": "low"
+      }
+    },
+    {
+      "id": "log-1771059624-f1ef46",
+      "timestamp": "2026-02-14T09:00:24Z",
+      "action": "task_created",
+      "taskId": "T025",
+      "actor": "system",
+      "details": {
+        "title": "Default Tauri icons need custom branding verification",
+        "status": "pending",
+        "priority": "medium"
+      },
+      "before": null,
+      "after": {
+        "title": "Default Tauri icons need custom branding verification",
+        "status": "pending",
+        "priority": "medium"
+      }
+    },
+    {
+      "id": "log-1771059630-eabee8",
+      "timestamp": "2026-02-14T09:00:30Z",
+      "action": "task_created",
+      "taskId": "T026",
+      "actor": "system",
+      "details": {
+        "title": "Rust code formatting issues reported by Ferrous Forge",
+        "status": "pending",
+        "priority": "low"
+      },
+      "before": null,
+      "after": {
+        "title": "Rust code formatting issues reported by Ferrous Forge",
+        "status": "pending",
+        "priority": "low"
+      }
+    },
+    {
+      "id": "log-1771059637-adaa65",
+      "timestamp": "2026-02-14T09:00:37Z",
+      "action": "task_created",
+      "taskId": "T027",
+      "actor": "system",
+      "details": {
+        "title": "Zero Rust documentation coverage",
+        "status": "pending",
+        "priority": "low"
+      },
+      "before": null,
+      "after": {
+        "title": "Zero Rust documentation coverage",
+        "status": "pending",
+        "priority": "low"
+      }
+    },
+    {
+      "id": "log-1771059645-1c3151",
+      "timestamp": "2026-02-14T09:00:45Z",
+      "action": "task_created",
+      "taskId": "T028",
+      "actor": "system",
+      "details": {
+        "title": "Vite bundle exceeds 500KB warning threshold",
+        "status": "pending",
+        "priority": "low"
+      },
+      "before": null,
+      "after": {
+        "title": "Vite bundle exceeds 500KB warning threshold",
+        "status": "pending",
+        "priority": "low"
+      }
+    },
+    {
+      "id": "log-1771059913-503366",
+      "timestamp": "2026-02-14T09:05:13Z",
+      "action": "task_created",
+      "taskId": "T029",
+      "actor": "system",
+      "details": {
+        "title": "BUG: App crashes immediately on Wayland (WebKitGTK DMA-BUF)",
+        "status": "pending",
+        "priority": "critical"
+      },
+      "before": null,
+      "after": {
+        "title": "BUG: App crashes immediately on Wayland (WebKitGTK DMA-BUF)",
+        "status": "pending",
+        "priority": "critical"
       }
     }
   ]

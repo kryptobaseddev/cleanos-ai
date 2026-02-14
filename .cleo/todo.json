@@ -47,14 +47,14 @@
       }
     }
   },
-  "lastUpdated": "2026-02-14T08:59:07Z",
+  "lastUpdated": "2026-02-14T09:05:18Z",
   "_meta": {
     "schemaVersion": "2.10.0",
-    "checksum": "c777967f02c00af1",
+    "checksum": "9eebce48074c0894",
     "configVersion": "2.10.0",
     "lastSessionId": null,
     "activeSession": "session_20260214_002325_816e5f",
-    "generation": 33,
+    "generation": 40,
     "lastModified": "2026-02-14T08:23:58Z"
   },
   "focus": {
@@ -545,7 +545,22 @@
       "completedAt": "2026-02-14T08:59:07Z",
       "notes": [
         "[COMPLETED 2026-02-14T08:59:07Z] OpenRouter model discovery implemented. model-registry.ts with 1hr caching, providers.ts refactored with dynamic loading + static fallbacks, ProviderConfig.tsx has Refresh Models button. Backend proxy in models.rs + commands.rs."
-      ]
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T08:59:07Z",
+        "failureLog": []
+      }
     },
     {
       "id": "T016",
@@ -555,7 +570,7 @@
       "type": "task",
       "parentId": "T010",
       "createdAt": "2026-02-14T08:23:51Z",
-      "updatedAt": "2026-02-14T08:26:06Z",
+      "updatedAt": "2026-02-14T08:59:24Z",
       "size": "small",
       "position": 6,
       "positionVersion": 0,
@@ -566,7 +581,8 @@
       ],
       "completedAt": "2026-02-14T08:26:06Z",
       "notes": [
-        "[COMPLETED 2026-02-14T08:26:06Z] CalVer 2026.02.0 applied to package.json, Cargo.toml, tauri.conf.json, Settings About page."
+        "[COMPLETED 2026-02-14T08:26:06Z] CalVer 2026.02.0 applied to package.json, Cargo.toml, tauri.conf.json, Settings About page.",
+        "2026-02-14 08:59:24 UTC: Version format corrected from 2026.02.0 to 2026.2.0 (YYYY.MM.MICRO). Zero-padded months invalid in SemVer, stripped by NPM, rejected by PyPI. package.json was mismatched, now standardized across all 3 config files."
       ],
       "verification": {
         "passed": false,
@@ -587,12 +603,12 @@
     {
       "id": "T017",
       "title": "Initialize git repo and push to GitHub",
-      "status": "pending",
+      "status": "done",
       "priority": "critical",
       "type": "task",
       "parentId": "T010",
       "createdAt": "2026-02-14T08:23:51Z",
-      "updatedAt": "2026-02-14T08:23:51Z",
+      "updatedAt": "2026-02-14T08:59:40Z",
       "size": "small",
       "position": 7,
       "positionVersion": 0,
@@ -600,7 +616,26 @@
       "description": "Init git, create .gitignore, commit all code, create GitHub repo, push.",
       "labels": [
         "infra"
-      ]
+      ],
+      "completedAt": "2026-02-14T08:59:40Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:59:40Z] Git repo initialized and pushed to GitHub at kryptobaseddev/cleanos-ai. Remote configured. Initial commit b22e915."
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T08:59:40Z",
+        "failureLog": []
+      }
     },
     {
       "id": "T018",
@@ -623,12 +658,12 @@
     {
       "id": "T019",
       "title": "In-app auto-update from GitHub releases",
-      "status": "pending",
+      "status": "done",
       "priority": "critical",
       "type": "task",
       "parentId": "T010",
       "createdAt": "2026-02-14T08:23:52Z",
-      "updatedAt": "2026-02-14T08:23:52Z",
+      "updatedAt": "2026-02-14T08:59:18Z",
       "size": "large",
       "position": 9,
       "positionVersion": 0,
@@ -636,7 +671,234 @@
       "description": "Tauri updater plugin integration. Check GitHub releases for new versions. Show update notification in app. Download and install update. Version comparison using CalVer.",
       "labels": [
         "feature"
+      ],
+      "completedAt": "2026-02-14T08:59:18Z",
+      "notes": [
+        "[COMPLETED 2026-02-14T08:59:18Z] Tauri updater plugin integrated. updater.rs with check_for_updates/install_update/get_current_version commands. UpdateChecker.tsx UI component with check/install/progress states. useUpdateChecker.ts hook. Sidebar shows Update badge. Version dynamically read from Cargo.toml via env!(CARGO_PKG_VERSION). BLOCKER: pubkey empty and no GitHub release endpoint exists yet."
+      ],
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T08:59:18Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T020",
+      "title": "BUG: Updater endpoint URL points to wrong GitHub user",
+      "status": "pending",
+      "priority": "critical",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T08:59:48Z",
+      "updatedAt": "2026-02-14T08:59:48Z",
+      "size": "medium",
+      "position": 10,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug"
+      ],
+      "notes": [
+        "2026-02-14 08:59:48 UTC: tauri.conf.json updater endpoint is https://github.com/keatonhoskins/cleanos-ai/... but actual remote is kryptobaseddev/cleanos-ai. Must fix to match actual GitHub repo."
       ]
+    },
+    {
+      "id": "T021",
+      "title": "Updater pubkey is empty - blocks production updates",
+      "status": "pending",
+      "priority": "critical",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T08:59:54Z",
+      "updatedAt": "2026-02-14T08:59:54Z",
+      "size": "medium",
+      "position": 11,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug",
+        "security"
+      ],
+      "notes": [
+        "2026-02-14 08:59:54 UTC: tauri.conf.json plugins.updater.pubkey is empty string. Tauri updater requires signing keypair for update verification. Must: 1) Generate key with pnpm tauri signer generate 2) Set pubkey in config 3) Set TAURI_SIGNING_PRIVATE_KEY in CI/CD"
+      ]
+    },
+    {
+      "id": "T022",
+      "title": "No GitHub release or latest.json exists for updater",
+      "status": "pending",
+      "priority": "critical",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:00:01Z",
+      "updatedAt": "2026-02-14T09:00:01Z",
+      "size": "medium",
+      "position": 12,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "infra"
+      ],
+      "depends": [
+        "T018",
+        "T021"
+      ],
+      "notes": [
+        "2026-02-14 09:00:02 UTC: Updater configured to check GitHub releases endpoint but no release/latest.json exists. Update checks will fail until: 1) GitHub release created with built artifacts 2) latest.json generated per Tauri updater JSON format 3) Depends on T018 (CI/CD) and T021 (signing key)"
+      ]
+    },
+    {
+      "id": "T023",
+      "title": "AppImage bundler fails - linuxdeploy discovery issue",
+      "status": "pending",
+      "priority": "medium",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:00:08Z",
+      "updatedAt": "2026-02-14T09:00:08Z",
+      "size": "medium",
+      "position": 13,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug",
+        "infra"
+      ],
+      "notes": [
+        "2026-02-14 09:00:08 UTC: Tauri AppImage bundler cannot find linuxdeploy despite it being installed at ~/.local/bin/linuxdeploy-x86_64.AppImage. Manual linuxdeploy execution succeeds. Workaround: symlink linuxdeploy -> linuxdeploy-x86_64.AppImage. .deb and .rpm build fine."
+      ]
+    },
+    {
+      "id": "T024",
+      "title": "Duplicate dependencies in .deb package metadata",
+      "status": "pending",
+      "priority": "low",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:00:16Z",
+      "updatedAt": "2026-02-14T09:00:16Z",
+      "size": "medium",
+      "position": 14,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug"
+      ],
+      "notes": [
+        "2026-02-14 09:00:16 UTC: deb control file shows: Depends: libwebkit2gtk-4.1-0, libgtk-3-0, libwebkit2gtk-4.1-0, libgtk-3-0. Each dependency listed twice. Tauri auto-detects deps AND reads from bundle.linux.deb.depends in tauri.conf.json, causing duplication. Fix: remove explicit depends from tauri.conf.json or deduplicate."
+      ]
+    },
+    {
+      "id": "T025",
+      "title": "Default Tauri icons need custom branding verification",
+      "status": "pending",
+      "priority": "medium",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:00:24Z",
+      "updatedAt": "2026-02-14T09:00:24Z",
+      "size": "medium",
+      "position": 15,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "design"
+      ],
+      "notes": [
+        "2026-02-14 09:00:24 UTC: Icons at src-tauri/icons/ have a custom teal/gold interlocking circles design. Need to verify: 1) Icon renders well at small sizes (16x16, 32x32) on desktop taskbar 2) .desktop file icon works in app launchers 3) Icon visible in both light and dark desktop themes 4) Consider creating SVG source for scalability"
+      ]
+    },
+    {
+      "id": "T026",
+      "title": "Rust code formatting issues reported by Ferrous Forge",
+      "status": "pending",
+      "priority": "low",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:00:30Z",
+      "updatedAt": "2026-02-14T09:00:30Z",
+      "size": "medium",
+      "position": 16,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "tech-debt"
+      ],
+      "notes": [
+        "2026-02-14 09:00:30 UTC: Build validation hook reports: Code formatting issues found in 1 files. Run cargo fmt in src-tauri/ to fix. Does not block build."
+      ]
+    },
+    {
+      "id": "T027",
+      "title": "Zero Rust documentation coverage",
+      "status": "pending",
+      "priority": "low",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:00:37Z",
+      "updatedAt": "2026-02-14T09:00:37Z",
+      "size": "medium",
+      "position": 17,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "tech-debt"
+      ],
+      "notes": [
+        "2026-02-14 09:00:37 UTC: Ferrous Forge reports 0.0% rustdoc coverage. No doc comments on public Rust functions/structs. Not blocking but should be addressed for maintainability. Affects: commands.rs, updater.rs, models.rs, and all other public APIs."
+      ]
+    },
+    {
+      "id": "T028",
+      "title": "Vite bundle exceeds 500KB warning threshold",
+      "status": "pending",
+      "priority": "low",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:00:45Z",
+      "updatedAt": "2026-02-14T09:00:45Z",
+      "size": "medium",
+      "position": 18,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "tech-debt"
+      ],
+      "notes": [
+        "2026-02-14 09:00:45 UTC: Production bundle index-5atmP7T9.js is 659.55KB (189KB gzipped). Exceeds Vite 500KB warning. Recharts library is the main contributor. Consider: 1) Code splitting with dynamic import() for charting page 2) manualChunks in rollupOptions 3) Or just increase chunkSizeWarningLimit if acceptable."
+      ]
+    },
+    {
+      "id": "T029",
+      "title": "BUG: App crashes immediately on Wayland (WebKitGTK DMA-BUF)",
+      "status": "done",
+      "priority": "critical",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-14T09:05:13Z",
+      "updatedAt": "2026-02-14T09:05:18Z",
+      "size": "medium",
+      "position": 19,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug"
+      ],
+      "notes": [
+        "2026-02-14 09:05:13 UTC: FIXED: App crashed on launch with 'Error 71 (Protocol error) dispatching to Wayland display'. Cause: WebKitGTK DMA-BUF renderer incompatibility on Fedora/Wayland/GNOME. Fix: Set WEBKIT_DISABLE_DMABUF_RENDERER=1 in lib.rs before Tauri init. Rebuilt and reinstalled RPM - app now launches correctly.",
+        "[COMPLETED 2026-02-14T09:05:18Z] Fixed in lib.rs. Set WEBKIT_DISABLE_DMABUF_RENDERER=1 env var before Tauri init. RPM rebuilt and reinstalled. App launches and stays open on Wayland."
+      ],
+      "completedAt": "2026-02-14T09:05:18Z"
     }
   ],
   "labels": {}
