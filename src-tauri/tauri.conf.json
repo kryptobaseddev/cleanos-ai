@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "CleanOS AI",
+  "productName": "CleanOS-AI",
   "version": "2026.3.0",
   "identifier": "com.cleanos.ai",
   "build": {
