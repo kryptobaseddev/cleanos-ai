@@ -139,10 +139,35 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
 
-      - name: List build artifacts
+      - name: Sign bundles and create updater artifacts
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         run: |
-          echo "=== All bundle artifacts ==="
-          find src-tauri/target/release/bundle -type f | sort
+          set -euo pipefail
+          VERSION="${GITHUB_REF_NAME#v}"
+          BUNDLE="src-tauri/target/release/bundle"
+
+          DEB="${BUNDLE}/deb/CleanOS-AI_${VERSION}_amd64.deb"
+          RPM="${BUNDLE}/rpm/CleanOS-AI-${VERSION}-1.x86_64.rpm"
+          APPIMAGE="${BUNDLE}/appimage/CleanOS-AI_${VERSION}_amd64.AppImage"
+
+          # Create .tar.gz of the AppImage for the updater
+          echo "Creating AppImage tarball..."
+          tar -czf "${APPIMAGE}.tar.gz" -C "$(dirname "$APPIMAGE")" "$(basename "$APPIMAGE")"
+
+          # Sign all artifacts using tauri signer
+          echo "Signing artifacts..."
+          for artifact in "$DEB" "$RPM" "$APPIMAGE" "${APPIMAGE}.tar.gz"; do
+            echo "  Signing $(basename "$artifact")..."
+            pnpm tauri signer sign "$artifact" \
+              --private-key "$TAURI_SIGNING_PRIVATE_KEY" \
+              --password "$TAURI_SIGNING_PRIVATE_KEY_PASSWORD"
+          done
+
+          echo "=== Signed artifacts ==="
+          find "${BUNDLE}" -name 'CleanOS-AI*' -type f | sort
 
       # ── Release creation (tag pushes only) ──
       - name: Create GitHub release and upload assets
@@ -157,36 +182,36 @@ jobs:
 
           echo "Creating release for ${TAG} (version ${VERSION})..."
 
-          # Collect release assets
-          ASSETS=()
-          while IFS= read -r f; do
-            ASSETS+=("$f")
-          done < <(find "${BUNDLE}" -name 'CleanOS-AI*' -type f | sort)
+          DEB="${BUNDLE}/deb/CleanOS-AI_${VERSION}_amd64.deb"
+          RPM="${BUNDLE}/rpm/CleanOS-AI-${VERSION}-1.x86_64.rpm"
+          APPIMAGE="${BUNDLE}/appimage/CleanOS-AI_${VERSION}_amd64.AppImage"
 
-          # Filter out lowercase-named duplicates (Tauri v2 generates both cases)
-          FILTERED=()
+          # Build explicit list of release assets
+          ASSETS=(
+            "$DEB"
+            "$DEB.sig"
+            "$RPM"
+            "$RPM.sig"
+            "$APPIMAGE"
+            "$APPIMAGE.sig"
+            "${APPIMAGE}.tar.gz"
+            "${APPIMAGE}.tar.gz.sig"
+          )
+
+          # Verify all assets exist
           for f in "${ASSETS[@]}"; do
-            basename=$(basename "$f")
-            if [[ "$basename" == clean-os-ai* ]]; then
-              continue
+            if [ ! -f "$f" ]; then
+              echo "ERROR: Missing asset: $f"
+              exit 1
             fi
-            FILTERED+=("$f")
+            echo "  OK: $(basename "$f") ($(stat -c%s "$f") bytes)"
           done
-          ASSETS=("${FILTERED[@]}")
-
-          echo "Assets to upload:"
-          printf '  %s\n' "${ASSETS[@]}"
 
           # Read the .AppImage.tar.gz.sig content for latest.json
-          APPIMAGE_SIG_FILE="${BUNDLE}/appimage/CleanOS-AI_${VERSION}_amd64.AppImage.tar.gz.sig"
-          if [ ! -f "$APPIMAGE_SIG_FILE" ]; then
-            echo "ERROR: Signature file not found: ${APPIMAGE_SIG_FILE}"
-            exit 1
-          fi
-          SIGNATURE=$(cat "$APPIMAGE_SIG_FILE")
+          SIGNATURE=$(cat "${APPIMAGE}.tar.gz.sig")
 
           # Generate latest.json for the Tauri updater
-          cat > latest.json <<LATESTEOF
+          cat > latest.json <<EOF
           {
             "version": "${VERSION}",
             "notes": "CleanOS AI v${VERSION}",
@@ -198,9 +223,7 @@ jobs:
               }
             }
           }
-          LATESTEOF
-
-          # Remove leading whitespace from heredoc
+          EOF
           sed -i 's/^          //' latest.json
 
           echo "=== latest.json ==="
@@ -208,17 +231,11 @@ jobs:
 
           ASSETS+=("latest.json")
 
-          # Create the release (or upload to existing draft)
-          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" &>/dev/null; then
-            echo "Release ${TAG} exists, uploading assets..."
-            gh release upload "$TAG" "${ASSETS[@]}" --repo "$GITHUB_REPOSITORY" --clobber
-          else
-            echo "Creating new release ${TAG}..."
-            gh release create "$TAG" "${ASSETS[@]}" \
-              --repo "$GITHUB_REPOSITORY" \
-              --title "CleanOS AI v${VERSION}" \
-              --notes "See the assets to download and install this version." \
-              --draft
-          fi
+          # Create the release
+          echo "Creating release ${TAG}..."
+          gh release create "$TAG" "${ASSETS[@]}" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "CleanOS AI v${VERSION}" \
+            --notes "See the assets to download and install this version."
 
-          echo "Release assets uploaded successfully."
+          echo "Release created and assets uploaded successfully."
