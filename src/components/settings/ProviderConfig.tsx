@@ -78,7 +78,7 @@ export function ProviderConfig() {
       setProviders(statuses);
     }
     loadSavedKeys();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const loadModels = useCallback(async () => {
     setModelsLoading(true);

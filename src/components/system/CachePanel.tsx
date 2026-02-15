@@ -37,7 +37,7 @@ export function CachePanel({ onRefresh }: CachePanelProps) {
     if (packageCaches.length === 0) {
       loadPackageCaches();
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   async function loadPackageCaches() {
     setLoading(true);

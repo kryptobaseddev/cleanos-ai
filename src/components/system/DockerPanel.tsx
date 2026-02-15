@@ -34,7 +34,7 @@ export function DockerPanel({ onRefresh }: DockerPanelProps) {
     if (!dockerInfo) {
       loadDockerInfo();
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   async function loadDockerInfo() {
     setLoading(true);
