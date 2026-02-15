@@ -116,7 +116,7 @@ export interface PackageCacheInfo {
   manager: string;
   path: string;
   size: number;
-  item_count: number;
+  exists: boolean;
 }
 
 // Cleanup types
@@ -138,9 +138,9 @@ export interface CleanupItem {
 }
 
 export interface CleanupResult {
+  success: boolean;
   space_freed: number;
-  items_removed: number;
-  errors: string[];
+  message: string;
 }
 
 // AI Provider types
@@ -197,6 +197,13 @@ export interface AppSettings {
   default_provider: string | null;
   auto_scan: boolean;
   notifications: boolean;
+}
+
+// Update types
+export interface UpdateInfo {
+  version: string;
+  date: string;
+  body: string;
 }
 
 // View types

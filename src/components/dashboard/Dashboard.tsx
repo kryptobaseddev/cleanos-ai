@@ -1,5 +1,7 @@
 import { useAppStore } from "@/stores/app-store";
 import { formatBytes, formatDate } from "@/lib/utils";
+import { scanDirectory } from "@/services/tauri-commands";
+import { homeDir } from "@tauri-apps/api/path";
 import { StatCard } from "./StatCard";
 import { StorageChart } from "./StorageChart";
 import { Card } from "@/components/ui/Card";
@@ -23,7 +25,32 @@ export function Dashboard() {
     activeProvider,
     cleanupRecommendations,
     isScanning,
+    setScannedFiles,
+    setIsScanning,
   } = useAppStore();
+
+  async function handleScanNow() {
+    setIsScanning(true);
+    try {
+      const home = await homeDir();
+      const directories = [
+        `${home}/Documents`,
+        `${home}/Downloads`,
+        `${home}/Desktop`,
+      ];
+      const results = await Promise.allSettled(
+        directories.map((dir) => scanDirectory(dir)),
+      );
+      const allFiles = results.flatMap((result) =>
+        result.status === "fulfilled" ? result.value : [],
+      );
+      setScannedFiles(allFiles);
+    } catch {
+      // Tauri command not available in dev; fail silently
+    } finally {
+      setIsScanning(false);
+    }
+  }
 
   const activeProviderStatus = providers.find((p) => p.id === activeProvider);
   const totalSize = scannedFiles.reduce((sum, f) => sum + f.size, 0);
@@ -122,6 +149,7 @@ export function Dashboard() {
               className="w-full justify-start"
               iconLeft={<Scan size={16} />}
               loading={isScanning}
+              onClick={handleScanNow}
             >
               {isScanning ? "Scanning..." : "Scan Now"}
             </Button>

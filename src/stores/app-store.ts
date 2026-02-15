@@ -57,9 +57,38 @@ interface AppState {
   setActiveProvider: (id: string | null) => void;
 }
 
+function getStoredTheme(): "light" | "dark" | "system" {
+  try {
+    const stored = localStorage.getItem("cleanos-theme");
+    if (stored === "light" || stored === "dark" || stored === "system") {
+      return stored;
+    }
+  } catch {
+    // localStorage not available
+  }
+  return "system";
+}
+
+function applyTheme(theme: "light" | "dark" | "system") {
+  const shouldBeDark =
+    theme === "dark" ||
+    (theme === "system" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+  if (shouldBeDark) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+}
+
+// Apply theme on initial load
+const initialTheme = getStoredTheme();
+applyTheme(initialTheme);
+
 export const useAppStore = create<AppState>((set) => ({
   // Initial UI state
-  theme: "dark",
+  theme: initialTheme,
   currentView: "dashboard",
   sidebarCollapsed: false,
 
@@ -83,11 +112,12 @@ export const useAppStore = create<AppState>((set) => ({
   // Actions
   setTheme: (theme) => {
     set({ theme });
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
+    try {
+      localStorage.setItem("cleanos-theme", theme);
+    } catch {
+      // localStorage not available
     }
+    applyTheme(theme);
   },
   setCurrentView: (currentView) => set({ currentView }),
   toggleSidebar: () =>

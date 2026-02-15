@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { formatBytes } from "@/lib/utils";
 import { useAppStore } from "@/stores/app-store";
+import { useUpdateChecker } from "@/hooks/useUpdateChecker";
 import {
   LayoutDashboard,
   FolderOpen,
@@ -36,6 +37,7 @@ export function Sidebar() {
     toggleSidebar,
     systemInfo,
   } = useAppStore();
+  const { updateAvailable } = useUpdateChecker(true);
 
   const diskUsed = systemInfo?.disk_used ?? 0;
   const diskTotal = systemInfo?.disk_total ?? 1;
@@ -75,8 +77,22 @@ export function Sidebar() {
               sidebarCollapsed && "justify-center px-0",
             )}
           >
-            <span className="shrink-0">{item.icon}</span>
-            {!sidebarCollapsed && <span>{item.label}</span>}
+            <span className="relative shrink-0">
+              {item.icon}
+              {item.id === "settings" && updateAvailable && (
+                <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-primary-500 ring-2 ring-white dark:ring-surface-900" />
+              )}
+            </span>
+            {!sidebarCollapsed && (
+              <span className="flex items-center gap-2">
+                {item.label}
+                {item.id === "settings" && updateAvailable && (
+                  <span className="rounded-full bg-primary-100 px-1.5 py-0.5 text-[10px] font-semibold leading-none text-primary-700 dark:bg-primary-900/40 dark:text-primary-300">
+                    Update
+                  </span>
+                )}
+              </span>
+            )}
           </button>
         ))}
       </nav>

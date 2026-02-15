@@ -1,3 +1,9 @@
+//! Tauri IPC command handlers.
+//!
+//! Each public function annotated with `#[tauri::command]` is callable from
+//! the frontend via `invoke()`. Commands are grouped by domain: file ops,
+//! system info, AI operations, credentials, and settings.
+
 use std::sync::Arc;
 
 use crate::ai_client::{AIAnalysis, AIClient, CleanupRecommendation};
@@ -6,9 +12,12 @@ use crate::credentials;
 use crate::database::Database;
 use crate::docker;
 use crate::filesystem::{self, FileInfo};
+use crate::models;
 use crate::system::{self, CleanupResult, PackageCacheInfo, StorageBreakdown, SystemInfo};
 
+/// Shared application state managed by Tauri.
 pub struct AppState {
+    /// Thread-safe handle to the SQLite database.
     pub db: Arc<Database>,
 }
 
@@ -106,17 +115,46 @@ pub async fn clean_package_cache(manager: String) -> Result<CleanupResult, Strin
         .map_err(|e| format!("Task join error: {e}"))?
 }
 
+// --- Model discovery ---
+
+#[tauri::command]
+pub async fn fetch_available_models() -> Result<String, String> {
+    models::fetch_openrouter_models().await
+}
+
 // --- AI operations ---
+
+#[tauri::command]
+pub async fn chat_with_ai(
+    provider: String,
+    message: String,
+    model: Option<String>,
+) -> Result<String, String> {
+    let api_key = credentials::get_credential(&provider)
+        .map_err(|_| format!("No API key saved for {provider}. Configure it in Settings."))?;
+    let m = model.unwrap_or_else(|| get_default_model(&provider));
+    let client = AIClient::new(&provider, &api_key, &m);
+    client.chat(&message).await
+}
 
 #[tauri::command]
 pub async fn test_ai_connection(
     provider: String,
-    api_key: String,
+    api_key: Option<String>,
     model: String,
 ) -> Result<bool, String> {
-    let client = AIClient::new(&provider, &api_key, &model);
+    // Use provided key if given, otherwise read from keyring
+    let key = match api_key {
+        Some(k) if !k.is_empty() => k,
+        _ => credentials::get_credential(&provider)
+            .map_err(|_| format!("No API key provided or saved for {provider}"))?,
+    };
+    let client = AIClient::new(&provider, &key, &model);
     client.test_connection().await
 }
+
+/// Maximum number of files to analyze concurrently per batch.
+const AI_ANALYSIS_CHUNK_SIZE: usize = 5;
 
 #[tauri::command]
 pub async fn analyze_files_with_ai(
@@ -129,9 +167,15 @@ pub async fn analyze_files_with_ai(
     let client = AIClient::new(&provider, &api_key, &model);
 
     let mut analyses = Vec::new();
-    for path in file_paths {
-        let analysis = analyze_single_file(&client, &state, &path).await;
-        analyses.push(analysis);
+    // Process files in chunks to avoid overwhelming the API while still
+    // getting some parallelism. Each chunk runs concurrently.
+    for chunk in file_paths.chunks(AI_ANALYSIS_CHUNK_SIZE) {
+        let futures: Vec<_> = chunk
+            .iter()
+            .map(|path| analyze_single_file(&client, &state, path))
+            .collect();
+        let results = futures::future::join_all(futures).await;
+        analyses.extend(results);
     }
     Ok(analyses)
 }

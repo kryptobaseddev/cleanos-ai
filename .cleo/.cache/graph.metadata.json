@@ -1,8 +1,8 @@
 {
   "version": "0.95.4mode=devsource=/mnt/projects/claude-todoinstalled=2026-02-12T20:22:27Z",
-  "createdAt": "2026-02-14T08:26:07Z",
+  "createdAt": "2026-02-14T09:34:59Z",
   "todoFile": ".cleo/todo.json",
-  "forwardEdges": 7,
-  "reverseEdges": 7,
+  "forwardEdges": 9,
+  "reverseEdges": 11,
   "cacheType": "dependency-graph"
 }

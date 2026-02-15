@@ -1,3 +1,8 @@
+//! Multi-provider AI client for file analysis and cleanup recommendations.
+//!
+//! Supports OpenAI, Google Gemini, Anthropic Claude, and Moonshot Kimi.
+//! Each provider has its own request/response format handled transparently.
+
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
@@ -60,6 +65,11 @@ impl AIClient {
             model: model.to_string(),
             base_url,
         }
+    }
+
+    /// Send a freeform chat message and return the AI response.
+    pub async fn chat(&self, message: &str) -> Result<String, String> {
+        self.send_message(message).await
     }
 
     pub async fn test_connection(&self) -> Result<bool, String> {

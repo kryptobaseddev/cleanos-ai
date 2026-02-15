@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { formatBytes } from "@/lib/utils";
 import { useAppStore } from "@/stores/app-store";
+import {
+  getDockerInfo,
+  getPackageCaches,
+} from "@/services/tauri-commands";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { DockerPanel } from "./DockerPanel";
 import { CachePanel } from "./CachePanel";
+import { LogPanel } from "./LogPanel";
+import { BrowserCachePanel } from "./BrowserCachePanel";
 import {
   HardDrive,
   Container,
@@ -39,7 +45,32 @@ export function SystemCleanup() {
     dockerInfo,
     packageCaches,
     cleanupRecommendations,
+    setDockerInfo,
+    setPackageCaches,
   } = useAppStore();
+
+  const refreshDockerInfo = useCallback(async () => {
+    try {
+      const info = await getDockerInfo();
+      setDockerInfo(info);
+    } catch {
+      // Docker may not be installed; leave as null
+    }
+  }, [setDockerInfo]);
+
+  const refreshPackageCaches = useCallback(async () => {
+    try {
+      const caches = await getPackageCaches();
+      setPackageCaches(caches);
+    } catch {
+      // Leave as empty array on failure
+    }
+  }, [setPackageCaches]);
+
+  useEffect(() => {
+    refreshDockerInfo();
+    refreshPackageCaches();
+  }, [refreshDockerInfo, refreshPackageCaches]);
 
   const dockerSpace =
     (dockerInfo?.build_cache_size ?? 0) +
@@ -214,30 +245,11 @@ export function SystemCleanup() {
         </div>
       )}
 
-      {activeTab === "docker" && <DockerPanel />}
-      {activeTab === "packages" && <CachePanel />}
+      {activeTab === "docker" && <DockerPanel onRefresh={refreshDockerInfo} />}
+      {activeTab === "packages" && <CachePanel onRefresh={refreshPackageCaches} />}
 
-      {activeTab === "logs" && (
-        <Card>
-          <div className="flex h-48 flex-col items-center justify-center text-surface-400">
-            <FileText size={40} className="mb-3" />
-            <p className="text-lg font-medium">System Logs</p>
-            <p className="text-sm">Log analysis will appear here after scanning.</p>
-          </div>
-        </Card>
-      )}
-
-      {activeTab === "browser" && (
-        <Card>
-          <div className="flex h-48 flex-col items-center justify-center text-surface-400">
-            <Globe size={40} className="mb-3" />
-            <p className="text-lg font-medium">Browser Caches</p>
-            <p className="text-sm">
-              Chrome, Brave, and Firefox cache analysis will appear here.
-            </p>
-          </div>
-        </Card>
-      )}
+      {activeTab === "logs" && <LogPanel />}
+      {activeTab === "browser" && <BrowserCachePanel />}
     </div>
   );
 }

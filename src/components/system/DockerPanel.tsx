@@ -1,26 +1,102 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { formatBytes } from "@/lib/utils";
 import { useAppStore } from "@/stores/app-store";
-import { cleanDocker } from "@/services/tauri-commands";
+import { cleanDocker, getDockerInfo } from "@/services/tauri-commands";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { Box, Container, Database, Trash2 } from "lucide-react";
+import {
+  Box,
+  Container,
+  Database,
+  Trash2,
+  RefreshCw,
+  Loader2,
+  AlertCircle,
+} from "lucide-react";
 
 type DockerTab = "images" | "containers" | "volumes";
 
-export function DockerPanel() {
-  const { dockerInfo } = useAppStore();
+interface DockerPanelProps {
+  onRefresh?: () => Promise<void>;
+}
+
+export function DockerPanel({ onRefresh }: DockerPanelProps) {
+  const { dockerInfo, setDockerInfo } = useAppStore();
   const [activeTab, setActiveTab] = useState<DockerTab>("images");
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [cleaning, setCleaning] = useState(false);
+  const [loading, setLoading] = useState(!dockerInfo);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!dockerInfo) {
+      loadDockerInfo();
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  async function loadDockerInfo() {
+    setLoading(true);
+    setError(null);
+    try {
+      const info = await getDockerInfo();
+      setDockerInfo(info);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Failed to load Docker info. Is Docker running?",
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (loading) {
+    return (
+      <Card>
+        <div className="flex h-48 flex-col items-center justify-center gap-2 text-sm text-surface-400">
+          <Loader2 size={24} className="animate-spin" />
+          <p>Loading Docker info...</p>
+        </div>
+      </Card>
+    );
+  }
+
+  if (error) {
+    return (
+      <Card>
+        <div className="flex h-48 flex-col items-center justify-center gap-3 text-sm text-surface-400">
+          <AlertCircle size={32} className="text-amber-500" />
+          <p className="text-surface-600 dark:text-surface-300">{error}</p>
+          <Button
+            variant="outline"
+            size="sm"
+            iconLeft={<RefreshCw size={14} />}
+            onClick={loadDockerInfo}
+          >
+            Retry
+          </Button>
+        </div>
+      </Card>
+    );
+  }
 
   if (!dockerInfo) {
     return (
       <Card>
-        <div className="flex h-48 items-center justify-center text-sm text-surface-400">
-          Loading Docker info...
+        <div className="flex h-48 flex-col items-center justify-center gap-3 text-sm text-surface-400">
+          <AlertCircle size={32} />
+          <p>No Docker data available.</p>
+          <Button
+            variant="outline"
+            size="sm"
+            iconLeft={<RefreshCw size={14} />}
+            onClick={loadDockerInfo}
+          >
+            Retry
+          </Button>
         </div>
       </Card>
     );
@@ -46,8 +122,14 @@ export function DockerPanel() {
     try {
       await cleanDocker(target);
       setSelectedIds(new Set());
+      // Refresh data after cleanup
+      if (onRefresh) {
+        await onRefresh();
+      } else {
+        await loadDockerInfo();
+      }
     } catch {
-      // fail silently
+      // fail silently for now
     } finally {
       setCleaning(false);
     }

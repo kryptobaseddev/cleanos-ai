@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAppStore } from "@/stores/app-store";
 import { formatBytes } from "@/lib/utils";
 import { scanDirectory } from "@/services/tauri-commands";
+import { homeDir } from "@tauri-apps/api/path";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card } from "@/components/ui/Card";
@@ -41,6 +42,8 @@ export function FileExplorer() {
     "all",
   );
   const [currentPath, setCurrentPath] = useState("~");
+  const [isEditingPath, setIsEditingPath] = useState(false);
+  const [pathInputValue, setPathInputValue] = useState("~");
 
   const categories: Array<FileCategory | "all"> = [
     "all",
@@ -69,16 +72,39 @@ export function FileExplorer() {
 
   const hasSelection = selectedFiles.size > 0;
 
+  async function resolveHomePath(path: string): Promise<string> {
+    if (path === "~" || path.startsWith("~/")) {
+      try {
+        const home = await homeDir();
+        if (path === "~") return home;
+        return home + path.slice(1);
+      } catch {
+        // Fallback if Tauri path API unavailable
+        return path;
+      }
+    }
+    return path;
+  }
+
   async function handleScan() {
     setIsScanning(true);
     try {
-      const files = await scanDirectory(currentPath);
+      const resolvedPath = await resolveHomePath(currentPath);
+      const files = await scanDirectory(resolvedPath);
       setScannedFiles(files);
     } catch {
       // Tauri command not available in dev; fail silently
     } finally {
       setIsScanning(false);
     }
+  }
+
+  function handlePathSubmit() {
+    const trimmed = pathInputValue.trim();
+    if (trimmed) {
+      setCurrentPath(trimmed);
+    }
+    setIsEditingPath(false);
   }
 
   const pathParts = currentPath.split("/").filter(Boolean);
@@ -100,28 +126,60 @@ export function FileExplorer() {
         </Button>
       </div>
 
-      {/* Breadcrumb */}
-      <div className="flex items-center gap-1 text-sm text-surface-500 dark:text-surface-400">
-        <button
-          onClick={() => setCurrentPath("~")}
-          className="flex items-center hover:text-primary-500"
-        >
-          <Home size={14} />
-        </button>
-        {pathParts.map((part, i) => (
-          <span key={i} className="flex items-center gap-1">
-            <ChevronRight size={12} />
-            <button
-              onClick={() =>
-                setCurrentPath("/" + pathParts.slice(0, i + 1).join("/"))
+      {/* Breadcrumb / Path Input */}
+      {isEditingPath ? (
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            value={pathInputValue}
+            onChange={(e) => setPathInputValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handlePathSubmit();
+              if (e.key === "Escape") {
+                setPathInputValue(currentPath);
+                setIsEditingPath(false);
               }
-              className="hover:text-primary-500"
-            >
-              {part}
-            </button>
-          </span>
-        ))}
-      </div>
+            }}
+            onBlur={handlePathSubmit}
+            autoFocus
+            className="flex-1 rounded-lg border border-surface-300 bg-white px-3 py-1.5 text-sm text-surface-700 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-surface-600 dark:bg-surface-800 dark:text-surface-300"
+            placeholder="Enter directory path..."
+          />
+        </div>
+      ) : (
+        <div
+          className="flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1.5 text-sm text-surface-500 hover:bg-surface-100 dark:text-surface-400 dark:hover:bg-surface-800"
+          onClick={() => {
+            setPathInputValue(currentPath);
+            setIsEditingPath(true);
+          }}
+          title="Click to edit path"
+        >
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentPath("~");
+            }}
+            className="flex items-center hover:text-primary-500"
+          >
+            <Home size={14} />
+          </button>
+          {pathParts.map((part, i) => (
+            <span key={i} className="flex items-center gap-1">
+              <ChevronRight size={12} />
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentPath("/" + pathParts.slice(0, i + 1).join("/"));
+                }}
+                className="hover:text-primary-500"
+              >
+                {part}
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* Toolbar */}
       <Card padding="sm">

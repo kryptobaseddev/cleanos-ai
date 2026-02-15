@@ -47,18 +47,18 @@
       }
     }
   },
-  "lastUpdated": "2026-02-14T09:34:45Z",
+  "lastUpdated": "2026-02-15T02:42:09Z",
   "_meta": {
     "schemaVersion": "2.10.0",
-    "checksum": "ade07e7bd3704881",
+    "checksum": "b06292373c5936ec",
     "configVersion": "2.10.0",
     "lastSessionId": null,
     "activeSession": "session_20260214_002325_816e5f",
-    "generation": 43,
+    "generation": 59,
     "lastModified": "2026-02-14T09:21:29Z"
   },
   "focus": {
-    "currentTask": "T032",
+    "currentTask": null,
     "currentPhase": "setup",
     "blockedUntil": null,
     "sessionNote": "CleanOS AI v0.1.0 build complete. Epic T001 done.",
@@ -981,17 +981,32 @@
         "2026-02-14 09:18:24 UTC: Dashboard shows Total Files: 0 and Storage Used: 0. Scan Now button does nothing when clicked. Need to: 1) Wire up Scan Now button to trigger scanDirectory command 2) Store scan results and update dashboard stats 3) Show meaningful defaults or prompt before first scan.",
         "[COMPLETED 2026-02-14T09:34:45Z] Fixed: Dashboard Scan Now button now has onClick handler. Scans ~/Documents, ~/Downloads, ~/Desktop in parallel using Promise.allSettled. Merges results into store. Uses homeDir() from Tauri API to resolve ~ paths."
       ],
-      "completedAt": "2026-02-14T09:34:45Z"
+      "completedAt": "2026-02-14T09:34:45Z",
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T09:34:45Z",
+        "failureLog": []
+      }
     },
     {
       "id": "T033",
       "title": "BUG: Files tab directory input not functional, Scan Directory broken",
-      "status": "pending",
+      "status": "done",
       "priority": "critical",
       "type": "task",
       "parentId": "T010",
       "createdAt": "2026-02-14T09:18:25Z",
-      "updatedAt": "2026-02-14T09:18:25Z",
+      "updatedAt": "2026-02-14T09:34:48Z",
       "size": "medium",
       "position": 23,
       "positionVersion": 0,
@@ -1001,18 +1016,35 @@
         "ui"
       ],
       "notes": [
-        "2026-02-14 09:18:25 UTC: Files tab: 1) The ~ path input doesnt open a directory picker/browser - not intuitive for users 2) Scan Directory button does nothing when clicked 3) Need native directory picker dialog (Tauri dialog plugin) 4) Should show file browser after scan completes."
-      ]
+        "2026-02-14 09:18:25 UTC: Files tab: 1) The ~ path input doesnt open a directory picker/browser - not intuitive for users 2) Scan Directory button does nothing when clicked 3) Need native directory picker dialog (Tauri dialog plugin) 4) Should show file browser after scan completes.",
+        "[COMPLETED 2026-02-14T09:34:48Z] Fixed: FileExplorer now has editable path input. Click breadcrumb to enter edit mode, type/paste any path, press Enter to scan. handleScan resolves ~ via Tauri homeDir() API before calling scanDirectory."
+      ],
+      "completedAt": "2026-02-14T09:34:48Z",
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T09:34:48Z",
+        "failureLog": []
+      }
     },
     {
       "id": "T034",
       "title": "BUG: System Cleanup tab shows no data - depends on scan",
-      "status": "pending",
+      "status": "done",
       "priority": "medium",
       "type": "task",
       "parentId": "T010",
       "createdAt": "2026-02-14T09:18:27Z",
-      "updatedAt": "2026-02-14T09:18:27Z",
+      "updatedAt": "2026-02-14T09:34:59Z",
       "size": "medium",
       "position": 24,
       "positionVersion": 0,
@@ -1021,18 +1053,35 @@
         "bug"
       ],
       "notes": [
-        "2026-02-14 09:18:27 UTC: System Cleanup tab appears empty/non-actionable. May be because no scan has been done. Need to: 1) Clarify dependency on scan vs independent system analysis 2) If independent, wire up system cleanup commands 3) Show helpful empty state explaining what to do."
-      ]
+        "2026-02-14 09:18:27 UTC: System Cleanup tab appears empty/non-actionable. May be because no scan has been done. Need to: 1) Clarify dependency on scan vs independent system analysis 2) If independent, wire up system cleanup commands 3) Show helpful empty state explaining what to do.",
+        "[COMPLETED 2026-02-14T09:34:59Z] Fixed: SystemCleanup parent component now calls getDockerInfo and getPackageCaches on mount and passes refresh callbacks to children. Logs and Browser Caches tabs show proper Coming Soon states."
+      ],
+      "completedAt": "2026-02-14T09:34:59Z",
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T09:34:59Z",
+        "failureLog": []
+      }
     },
     {
       "id": "T035",
       "title": "BUG: System Cleanup Docker tab empty - not loading containers/images",
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "type": "task",
       "parentId": "T010",
       "createdAt": "2026-02-14T09:18:28Z",
-      "updatedAt": "2026-02-14T09:18:28Z",
+      "updatedAt": "2026-02-14T09:34:55Z",
       "size": "medium",
       "position": 25,
       "positionVersion": 0,
@@ -1041,18 +1090,35 @@
         "bug"
       ],
       "notes": [
-        "2026-02-14 09:18:28 UTC: System Cleanup > Docker tab shows nothing. The get_docker_info command exists in commands.rs but the frontend may not be calling it or handling the response. Need to: 1) Check if Docker is installed on system 2) Call getDockerInfo on tab mount 3) Display containers, images, volumes with cleanup actions."
-      ]
+        "2026-02-14 09:18:28 UTC: System Cleanup > Docker tab shows nothing. The get_docker_info command exists in commands.rs but the frontend may not be calling it or handling the response. Need to: 1) Check if Docker is installed on system 2) Call getDockerInfo on tab mount 3) Display containers, images, volumes with cleanup actions.",
+        "[COMPLETED 2026-02-14T09:34:55Z] Fixed: DockerPanel now calls getDockerInfo on mount. Added loading/error/retry states. Cleanup actions refresh data after completion."
+      ],
+      "completedAt": "2026-02-14T09:34:55Z",
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T09:34:56Z",
+        "failureLog": []
+      }
     },
     {
       "id": "T036",
       "title": "BUG: System Cleanup Package Caches tab empty",
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "type": "task",
       "parentId": "T010",
       "createdAt": "2026-02-14T09:18:46Z",
-      "updatedAt": "2026-02-14T09:18:46Z",
+      "updatedAt": "2026-02-14T09:34:57Z",
       "size": "medium",
       "position": 26,
       "positionVersion": 0,
@@ -1061,8 +1127,25 @@
         "bug"
       ],
       "notes": [
-        "2026-02-14 09:18:46 UTC: System Cleanup > Package Caches tab shows nothing. Backend has get_package_caches and clean_package_cache commands in commands.rs. Frontend needs to call getPackageCaches on tab mount and display cache sizes with cleanup actions."
-      ]
+        "2026-02-14 09:18:46 UTC: System Cleanup > Package Caches tab shows nothing. Backend has get_package_caches and clean_package_cache commands in commands.rs. Frontend needs to call getPackageCaches on tab mount and display cache sizes with cleanup actions.",
+        "[COMPLETED 2026-02-14T09:34:57Z] Fixed: CachePanel now calls getPackageCaches on mount. Added loading/error/retry states. Cleanup actions refresh data after completion."
+      ],
+      "completedAt": "2026-02-14T09:34:57Z",
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T09:34:58Z",
+        "failureLog": []
+      }
     },
     {
       "id": "T037",
@@ -1107,12 +1190,12 @@
     {
       "id": "T039",
       "title": "BUG: API key not saving/persisting in Settings",
-      "status": "pending",
+      "status": "done",
       "priority": "critical",
       "type": "task",
       "parentId": "T010",
       "createdAt": "2026-02-14T09:18:50Z",
-      "updatedAt": "2026-02-14T09:18:50Z",
+      "updatedAt": "2026-02-14T09:34:50Z",
       "size": "medium",
       "position": 29,
       "positionVersion": 0,
@@ -1121,18 +1204,35 @@
         "bug"
       ],
       "notes": [
-        "2026-02-14 09:18:50 UTC: Settings > AI Providers: entering an API key and saving does not persist. Key disappears on revisit. Backend uses keyring crate for credential storage (credentials.rs). Need to verify: 1) storeApiKey command is being called on save 2) keyring service is accessible 3) getApiKey/hasApiKey work on reload."
-      ]
+        "2026-02-14 09:18:50 UTC: Settings > AI Providers: entering an API key and saving does not persist. Key disappears on revisit. Backend uses keyring crate for credential storage (credentials.rs). Need to verify: 1) storeApiKey command is being called on save 2) keyring service is accessible 3) getApiKey/hasApiKey work on reload.",
+        "[COMPLETED 2026-02-14T09:34:50Z] Fixed: ProviderConfig now loads saved keys on mount via hasApiKey(). Added Save Key button that stores without requiring test. Shows saved indicator and success flash. Keys persist across navigation."
+      ],
+      "completedAt": "2026-02-14T09:34:50Z",
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T09:34:50Z",
+        "failureLog": []
+      }
     },
     {
       "id": "T040",
       "title": "BUG: Settings Add/Remove directory buttons non-functional",
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "type": "task",
       "parentId": "T010",
       "createdAt": "2026-02-14T09:18:51Z",
-      "updatedAt": "2026-02-14T09:18:51Z",
+      "updatedAt": "2026-02-14T09:34:52Z",
       "size": "medium",
       "position": 30,
       "positionVersion": 0,
@@ -1142,18 +1242,35 @@
         "ui"
       ],
       "notes": [
-        "2026-02-14 09:18:51 UTC: Settings > General > Scan Directories: 1) Add directory button does nothing 2) Remove button on existing directories does nothing 3) Directories are hardcoded as ~/Documents, ~/Downloads, ~/Desktop 4) Need to wire up to settings storage (get_setting/set_setting) and add native directory picker."
-      ]
+        "2026-02-14 09:18:51 UTC: Settings > General > Scan Directories: 1) Add directory button does nothing 2) Remove button on existing directories does nothing 3) Directories are hardcoded as ~/Documents, ~/Downloads, ~/Desktop 4) Need to wire up to settings storage (get_setting/set_setting) and add native directory picker.",
+        "[COMPLETED 2026-02-14T09:34:52Z] Fixed: Scan directories now stored in state and persisted via getSetting/setSetting. Remove button works. Add directory shows text input with Enter/Escape support. Loads saved dirs on mount from Tauri backend."
+      ],
+      "completedAt": "2026-02-14T09:34:52Z",
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T09:34:52Z",
+        "failureLog": []
+      }
     },
     {
       "id": "T041",
       "title": "BUG: Theme detection broken - Light mode despite system dark mode, title bar doesn't follow theme",
-      "status": "pending",
+      "status": "done",
       "priority": "high",
       "type": "task",
       "parentId": "T010",
       "createdAt": "2026-02-14T09:18:53Z",
-      "updatedAt": "2026-02-14T09:18:53Z",
+      "updatedAt": "2026-02-14T09:34:54Z",
       "size": "medium",
       "position": 31,
       "positionVersion": 0,
@@ -1163,7 +1280,65 @@
         "ui"
       ],
       "notes": [
-        "2026-02-14 09:18:53 UTC: System theme detection not working: 1) App defaults to light mode even when system is in dark mode 2) Title bar/window decorations do not follow the app theme toggle 3) Need to detect system preference via prefers-color-scheme media query or Tauri theme API 4) Title bar theme requires Tauri window theme configuration."
+        "2026-02-14 09:18:53 UTC: System theme detection not working: 1) App defaults to light mode even when system is in dark mode 2) Title bar/window decorations do not follow the app theme toggle 3) Need to detect system preference via prefers-color-scheme media query or Tauri theme API 4) Title bar theme requires Tauri window theme configuration.",
+        "[COMPLETED 2026-02-14T09:34:54Z] Fixed: Theme default changed from hardcoded dark to system. setTheme now handles system mode via matchMedia. Theme persisted to localStorage. Applied at module load time before first render."
+      ],
+      "completedAt": "2026-02-14T09:34:54Z",
+      "verification": {
+        "passed": false,
+        "round": 0,
+        "gates": {
+          "implemented": true,
+          "testsPassed": null,
+          "qaPassed": null,
+          "cleanupDone": null,
+          "securityPassed": null,
+          "documented": null
+        },
+        "lastAgent": "coder",
+        "lastUpdated": "2026-02-14T09:34:54Z",
+        "failureLog": []
+      }
+    },
+    {
+      "id": "T042",
+      "title": "FIX: test_ai_connection should read key from keyring, not frontend param",
+      "status": "pending",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-15T02:42:08Z",
+      "updatedAt": "2026-02-15T02:42:08Z",
+      "size": "medium",
+      "position": 32,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug",
+        "security"
+      ],
+      "notes": [
+        "2026-02-15 02:42:08 UTC: test_ai_connection takes api_key as a param from frontend, but analyze_files_with_ai reads from keyring directly. After saving a key and navigating away, Test Connection fails because local state is empty. Fix: add a test_ai_connection_stored command that reads key from keyring, OR have frontend call getApiKey before testing. The backend approach is more secure."
+      ]
+    },
+    {
+      "id": "T043",
+      "title": "FIX: ProviderConfig should show connected status for providers with saved keys",
+      "status": "pending",
+      "priority": "high",
+      "type": "task",
+      "parentId": "T010",
+      "createdAt": "2026-02-15T02:42:09Z",
+      "updatedAt": "2026-02-15T02:42:09Z",
+      "size": "medium",
+      "position": 33,
+      "positionVersion": 0,
+      "phase": "setup",
+      "labels": [
+        "bug"
+      ],
+      "notes": [
+        "2026-02-15 02:42:09 UTC: On mount, hasApiKey tells us a key exists but the providerStatuses array in the store is empty (never populated). Need to: 1) On mount, for each provider with a saved key, attempt test_ai_connection from backend using stored key 2) Update providerStatuses in store with connected/disconnected 3) This drives Dashboard AI Provider card and Active badge"
       ]
     }
   ],

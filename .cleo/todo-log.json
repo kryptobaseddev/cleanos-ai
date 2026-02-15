@@ -4,9 +4,9 @@
   "project": "cleanos-ai",
   "_meta": {
     "schemaVersion": "2.4.0",
-    "totalEntries": 34,
+    "totalEntries": 42,
     "firstEntry": "2026-02-14T07:07:07Z",
-    "lastEntry": "2026-02-14T09:21:29Z",
+    "lastEntry": "2026-02-14T09:35:00Z",
     "entriesPruned": 0
   },
   "entries": [
@@ -1211,6 +1211,202 @@
         "currentTask": "T032"
       },
       "details": null
+    },
+    {
+      "id": "log_3d28ab4ee4b5",
+      "timestamp": "2026-02-14T09:34:46Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T032",
+      "before": {
+        "status": "active",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T09:34:45Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_2dbf986c5729",
+      "timestamp": "2026-02-14T09:34:48Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T033",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T09:34:48Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_732c13a9563d",
+      "timestamp": "2026-02-14T09:34:50Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T039",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T09:34:50Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_c443a9001f98",
+      "timestamp": "2026-02-14T09:34:52Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T040",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T09:34:52Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_db4c10b429b6",
+      "timestamp": "2026-02-14T09:34:54Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T041",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T09:34:54Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_8efd3cb79dfc",
+      "timestamp": "2026-02-14T09:34:56Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T035",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T09:34:55Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_728949577fa3",
+      "timestamp": "2026-02-14T09:34:58Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T036",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T09:34:57Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log_da63a0e394b8",
+      "timestamp": "2026-02-14T09:35:00Z",
+      "sessionId": "session_20260214_002325_816e5f",
+      "action": "status_changed",
+      "actor": "system",
+      "taskId": "T034",
+      "before": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "after": {
+        "status": "done",
+        "completedAt": "2026-02-14T09:34:59Z"
+      },
+      "details": {
+        "field": "status",
+        "operation": "complete"
+      }
+    },
+    {
+      "id": "log-1771123328-6fd2e9",
+      "timestamp": "2026-02-15T02:42:08Z",
+      "action": "task_created",
+      "taskId": "T042",
+      "actor": "system",
+      "details": {
+        "title": "FIX: test_ai_connection should read key from keyring, not frontend param",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "FIX: test_ai_connection should read key from keyring, not frontend param",
+        "status": "pending",
+        "priority": "high"
+      }
+    },
+    {
+      "id": "log-1771123329-5a5293",
+      "timestamp": "2026-02-15T02:42:09Z",
+      "action": "task_created",
+      "taskId": "T043",
+      "actor": "system",
+      "details": {
+        "title": "FIX: ProviderConfig should show connected status for providers with saved keys",
+        "status": "pending",
+        "priority": "high"
+      },
+      "before": null,
+      "after": {
+        "title": "FIX: ProviderConfig should show connected status for providers with saved keys",
+        "status": "pending",
+        "priority": "high"
+      }
     }
   ]
 }

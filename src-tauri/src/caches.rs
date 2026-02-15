@@ -1,3 +1,8 @@
+//! Package manager and browser cache detection and cleanup.
+//!
+//! Scans common cache directories for npm, pip, cargo, dnf, and popular
+//! browsers (Chrome, Brave, Firefox, Chromium).
+
 use std::fs;
 use std::process::Command;
 

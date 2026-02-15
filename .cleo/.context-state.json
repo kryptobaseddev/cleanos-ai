@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
-  "timestamp": "2026-02-14T08:27:17Z",
+  "timestamp": "2026-02-15T03:37:57Z",
   "staleAfterMs": 5000,
   "contextWindow": {
     "maxTokens": 200000,
-    "currentTokens": 177639,
-    "percentage": 88
+    "currentTokens": 193987,
+    "percentage": 96
   },
-  "status": "caution",
+  "status": "emergency",
   "sessionId": "",
   "workspace": "/mnt/projects/cleanos-ai"
 }

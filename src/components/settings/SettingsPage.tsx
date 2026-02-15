@@ -1,9 +1,72 @@
+import { useEffect, useState, useCallback } from "react";
 import { Card } from "@/components/ui/Card";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "./ThemeToggle";
 import { ProviderConfig } from "./ProviderConfig";
-import { Palette, Bot, Info } from "lucide-react";
+import { UpdateChecker } from "./UpdateChecker";
+import {
+  getCurrentVersion,
+  getSetting,
+  setSetting,
+} from "@/services/tauri-commands";
+import { Palette, Bot, Download, Info, Plus, X } from "lucide-react";
+
+const DEFAULT_DIRECTORIES = ["~/Documents", "~/Downloads", "~/Desktop"];
+const SCAN_DIRS_KEY = "scan_directories";
 
 export function SettingsPage() {
+  const [version, setVersion] = useState("...");
+  const [scanDirs, setScanDirs] = useState<string[]>(DEFAULT_DIRECTORIES);
+  const [addingDir, setAddingDir] = useState(false);
+  const [newDirPath, setNewDirPath] = useState("");
+
+  useEffect(() => {
+    getCurrentVersion().then(setVersion).catch(() => setVersion("unknown"));
+  }, []);
+
+  // Load saved scan directories on mount
+  useEffect(() => {
+    async function loadDirs() {
+      try {
+        const raw = await getSetting(SCAN_DIRS_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setScanDirs(parsed);
+          }
+        }
+      } catch {
+        // Use defaults on failure (including when key doesn't exist yet)
+      }
+    }
+    loadDirs();
+  }, []);
+
+  const persistDirs = useCallback(async (dirs: string[]) => {
+    try {
+      await setSetting(SCAN_DIRS_KEY, JSON.stringify(dirs));
+    } catch {
+      // fail silently
+    }
+  }, []);
+
+  function handleRemoveDir(dir: string) {
+    const updated = scanDirs.filter((d) => d !== dir);
+    setScanDirs(updated);
+    persistDirs(updated);
+  }
+
+  function handleAddDir() {
+    const trimmed = newDirPath.trim();
+    if (!trimmed || scanDirs.includes(trimmed)) return;
+    const updated = [...scanDirs, trimmed];
+    setScanDirs(updated);
+    persistDirs(updated);
+    setNewDirPath("");
+    setAddingDir(false);
+  }
+
   return (
     <div className="space-y-8">
       <div>
@@ -47,7 +110,7 @@ export function SettingsPage() {
                 Directories to include when scanning for files.
               </p>
               <div className="space-y-2">
-                {["~/Documents", "~/Downloads", "~/Desktop"].map((dir) => (
+                {scanDirs.map((dir) => (
                   <div
                     key={dir}
                     className="flex items-center justify-between rounded-lg border border-surface-200 px-3 py-2 dark:border-surface-700"
@@ -55,15 +118,58 @@ export function SettingsPage() {
                     <span className="text-sm text-surface-700 dark:text-surface-300">
                       {dir}
                     </span>
-                    <button className="text-xs text-red-500 hover:text-red-600">
+                    <button
+                      onClick={() => handleRemoveDir(dir)}
+                      className="flex items-center gap-1 text-xs text-red-500 hover:text-red-600"
+                    >
+                      <X size={12} />
                       Remove
                     </button>
                   </div>
                 ))}
               </div>
-              <button className="mt-2 text-sm text-primary-500 hover:text-primary-600">
-                + Add directory
-              </button>
+              {addingDir ? (
+                <div className="mt-2 flex items-center gap-2">
+                  <Input
+                    placeholder="e.g. ~/Projects"
+                    value={newDirPath}
+                    onChange={(e) => setNewDirPath(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") handleAddDir();
+                      if (e.key === "Escape") {
+                        setAddingDir(false);
+                        setNewDirPath("");
+                      }
+                    }}
+                  />
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={handleAddDir}
+                    disabled={!newDirPath.trim()}
+                  >
+                    Add
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setAddingDir(false);
+                      setNewDirPath("");
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setAddingDir(true)}
+                  className="mt-2 flex items-center gap-1 text-sm text-primary-500 hover:text-primary-600"
+                >
+                  <Plus size={14} />
+                  Add directory
+                </button>
+              )}
             </div>
           </div>
         </Card>
@@ -78,6 +184,17 @@ export function SettingsPage() {
           </h2>
         </div>
         <ProviderConfig />
+      </section>
+
+      {/* Updates */}
+      <section>
+        <div className="mb-4 flex items-center gap-2">
+          <Download size={18} className="text-surface-400" />
+          <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50">
+            Updates
+          </h2>
+        </div>
+        <UpdateChecker />
       </section>
 
       {/* About */}
@@ -95,7 +212,7 @@ export function SettingsPage() {
                 Version
               </span>
               <span className="text-sm font-medium text-surface-900 dark:text-surface-100">
-                2026.02.0
+                {version}
               </span>
             </div>
             <div className="flex items-center justify-between">

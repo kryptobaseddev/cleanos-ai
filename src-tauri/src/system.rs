@@ -1,3 +1,8 @@
+//! System information gathering: hostname, OS, kernel, memory, disk, and storage breakdown.
+//!
+//! Reads from `/proc`, `/etc`, and uses `df` for disk statistics.
+//! All functions are blocking and should be called via `spawn_blocking`.
+
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::Path;
