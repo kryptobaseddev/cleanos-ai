@@ -1,6 +1,6 @@
 [package]
 name = "cleanos-ai"
-version = "2026.3.0"
+version = "2026.2.1"
 description = "AI-powered system cleanup tool for Linux"
 authors = ["CleanOS AI Team"]
 edition = "2021"
