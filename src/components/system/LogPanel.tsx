@@ -45,18 +45,23 @@ export function LogPanel({ onRefresh }: LogPanelProps) {
   async function handleClean() {
     setCleaning(true);
     setCleanResult(null);
+    setError(null);
     try {
       const result = await cleanLogs();
-      setCleanResult(
-        result.success
-          ? "Journal vacuumed successfully. Kept recent 100MB."
-          : result.message || "Vacuum failed. You may need to run with elevated privileges.",
-      );
+      if (result.success) {
+        setCleanResult(
+          result.message || "Journal vacuumed successfully. Kept recent 100MB.",
+        );
+      } else {
+        setError(
+          result.message || "Vacuum failed. You may need to run with elevated privileges.",
+        );
+      }
       // Refresh info after cleaning
       if (onRefresh) await onRefresh();
       await loadLogInfo();
     } catch (err) {
-      setCleanResult(
+      setError(
         err instanceof Error ? err.message : "Failed to vacuum journal.",
       );
     } finally {

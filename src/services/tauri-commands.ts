@@ -36,8 +36,8 @@ export async function getDockerInfo(): Promise<DockerInfo> {
   return invoke<DockerInfo>("get_docker_info");
 }
 
-export async function cleanDocker(target: string): Promise<CleanupResult> {
-  return invoke<CleanupResult>("clean_docker", { target });
+export async function cleanDocker(target: string, ids?: string[]): Promise<CleanupResult> {
+  return invoke<CleanupResult>("clean_docker", { target, ids });
 }
 
 export async function getPackageCaches(): Promise<PackageCacheInfo[]> {

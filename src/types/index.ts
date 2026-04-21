@@ -27,12 +27,12 @@ export type FileCategory =
   | "other";
 
 export interface AIAnalysis {
-  category: FileCategory;
-  importance: number;
-  action: "keep" | "review" | "delete" | "move";
-  suggested_location?: string;
-  confidence: number;
-  summary?: string;
+  file_path: string;
+  category: string;
+  importance_score: number;
+  recommendation: string;
+  safe_to_delete: boolean;
+  reason: string;
 }
 
 // Scan types
@@ -136,6 +136,9 @@ export interface CleanupItem {
   description: string;
   selected: boolean;
 }
+
+// Alias for backward compatibility with Rust struct naming
+export type FileAnalysis = AIAnalysis;
 
 export interface CleanupResult {
   success: boolean;

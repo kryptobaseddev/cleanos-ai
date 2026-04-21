@@ -29,6 +29,7 @@ export function DockerPanel({ onRefresh }: DockerPanelProps) {
   const [cleaning, setCleaning] = useState(false);
   const [loading, setLoading] = useState(!dockerInfo);
   const [error, setError] = useState<string | null>(null);
+  const [cleanResult, setCleanResult] = useState<string | null>(null);
 
   useEffect(() => {
     if (!dockerInfo) {
@@ -108,19 +109,26 @@ export function DockerPanel({ onRefresh }: DockerPanelProps) {
     { id: "volumes", label: "Volumes", icon: <Database size={16} />, count: dockerInfo.volumes.length },
   ];
 
-  function toggleId(id: string) {
+  const toggleId = (id: string) => {
     setSelectedIds((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
       return next;
     });
-  }
+  };
 
-  async function handleClean(target: string) {
+  async function handleClean(target: string, specificIds?: string[]) {
     setCleaning(true);
+    setError(null);
+    setCleanResult(null);
     try {
-      await cleanDocker(target);
+      const result = await cleanDocker(target, specificIds);
+      if (result.success) {
+        setCleanResult(result.message || "Cleanup completed.");
+      } else {
+        setError(result.message || "Cleanup failed.");
+      }
       setSelectedIds(new Set());
       // Refresh data after cleanup
       if (onRefresh) {
@@ -128,8 +136,8 @@ export function DockerPanel({ onRefresh }: DockerPanelProps) {
       } else {
         await loadDockerInfo();
       }
-    } catch {
-      // fail silently for now
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Cleanup failed.");
     } finally {
       setCleaning(false);
     }
@@ -198,7 +206,7 @@ export function DockerPanel({ onRefresh }: DockerPanelProps) {
               size="sm"
               iconLeft={<Trash2 size={14} />}
               loading={cleaning}
-              onClick={() => handleClean(activeTab)}
+              onClick={() => handleClean(activeTab, Array.from(selectedIds))}
             >
               Clean Selected ({selectedIds.size})
             </Button>
@@ -207,30 +215,51 @@ export function DockerPanel({ onRefresh }: DockerPanelProps) {
             variant="outline"
             size="sm"
             loading={cleaning}
-            onClick={() => handleClean(`unused_${activeTab}`)}
+            onClick={() => handleClean(activeTab)}
           >
             Clean All Unused
           </Button>
         </div>
       </div>
 
+      {/* Error / Result */}
+      {(error || cleanResult) && (
+        <div className="border-b border-surface-200 px-4 py-3 dark:border-surface-700">
+          {error && (
+            <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400">
+              {error}
+            </div>
+          )}
+          {cleanResult && (
+            <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700 dark:border-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-400">
+              {cleanResult}
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Content */}
       <div className="divide-y divide-surface-100 dark:divide-surface-700/50">
         {activeTab === "images" &&
-          dockerInfo.images.map((img) => (
-            <div key={img.id} className="flex items-center gap-3 px-4 py-2.5">
+          dockerInfo.images.map((img, idx) => (
+            <div key={`img-${img.id}-${idx}`} className="flex items-center gap-3 px-4 py-2.5">
               <input
+                id={`cb-img-${img.id}-${idx}`}
                 type="checkbox"
+                value={img.id}
                 checked={selectedIds.has(img.id)}
-                onChange={() => toggleId(img.id)}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  toggleId(img.id);
+                }}
                 className="h-4 w-4 rounded border-surface-300 text-primary-600 dark:border-surface-600"
               />
-              <div className="min-w-0 flex-1">
+              <label htmlFor={`cb-img-${img.id}-${idx}`} className="min-w-0 flex-1 cursor-pointer">
                 <p className="truncate text-sm font-medium text-surface-900 dark:text-surface-100">
                   {img.repository}:{img.tag}
                 </p>
                 <p className="text-xs text-surface-400">{img.created}</p>
-              </div>
+              </label>
               <span className="text-sm text-surface-500">{formatBytes(img.size)}</span>
               <Badge variant={img.in_use ? "success" : "outline"} size="sm">
                 {img.in_use ? "In Use" : "Unused"}
@@ -239,20 +268,25 @@ export function DockerPanel({ onRefresh }: DockerPanelProps) {
           ))}
 
         {activeTab === "containers" &&
-          dockerInfo.containers.map((ctn) => (
-            <div key={ctn.id} className="flex items-center gap-3 px-4 py-2.5">
+          dockerInfo.containers.map((ctn, idx) => (
+            <div key={`ctn-${ctn.id}-${idx}`} className="flex items-center gap-3 px-4 py-2.5">
               <input
+                id={`cb-ctn-${ctn.id}-${idx}`}
                 type="checkbox"
+                value={ctn.id}
                 checked={selectedIds.has(ctn.id)}
-                onChange={() => toggleId(ctn.id)}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  toggleId(ctn.id);
+                }}
                 className="h-4 w-4 rounded border-surface-300 text-primary-600 dark:border-surface-600"
               />
-              <div className="min-w-0 flex-1">
+              <label htmlFor={`cb-ctn-${ctn.id}-${idx}`} className="min-w-0 flex-1 cursor-pointer">
                 <p className="truncate text-sm font-medium text-surface-900 dark:text-surface-100">
                   {ctn.name}
                 </p>
                 <p className="text-xs text-surface-400">{ctn.image}</p>
-              </div>
+              </label>
               <span className="text-sm text-surface-500">{formatBytes(ctn.size)}</span>
               <Badge
                 variant={ctn.status.includes("running") ? "success" : "outline"}
@@ -264,20 +298,25 @@ export function DockerPanel({ onRefresh }: DockerPanelProps) {
           ))}
 
         {activeTab === "volumes" &&
-          dockerInfo.volumes.map((vol) => (
-            <div key={vol.name} className="flex items-center gap-3 px-4 py-2.5">
+          dockerInfo.volumes.map((vol, idx) => (
+            <div key={`vol-${vol.name}-${idx}`} className="flex items-center gap-3 px-4 py-2.5">
               <input
+                id={`cb-vol-${vol.name}-${idx}`}
                 type="checkbox"
+                value={vol.name}
                 checked={selectedIds.has(vol.name)}
-                onChange={() => toggleId(vol.name)}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  toggleId(vol.name);
+                }}
                 className="h-4 w-4 rounded border-surface-300 text-primary-600 dark:border-surface-600"
               />
-              <div className="min-w-0 flex-1">
+              <label htmlFor={`cb-vol-${vol.name}-${idx}`} className="min-w-0 flex-1 cursor-pointer">
                 <p className="truncate text-sm font-medium text-surface-900 dark:text-surface-100">
                   {vol.name}
                 </p>
                 <p className="text-xs text-surface-400">Driver: {vol.driver}</p>
-              </div>
+              </label>
               <span className="text-sm text-surface-500">{formatBytes(vol.size)}</span>
               <Badge variant={vol.in_use ? "success" : "outline"} size="sm">
                 {vol.in_use ? "In Use" : "Unused"}

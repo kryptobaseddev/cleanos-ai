@@ -23,6 +23,7 @@ export function BrowserCachePanel({ onRefresh }: BrowserCachePanelProps) {
   const [error, setError] = useState<string | null>(null);
   const [cleaningBrowser, setCleaningBrowser] = useState<string | null>(null);
   const [cleaningAll, setCleaningAll] = useState(false);
+  const [cleanResult, setCleanResult] = useState<string | null>(null);
 
   useEffect(() => {
     loadCaches();
@@ -49,12 +50,19 @@ export function BrowserCachePanel({ onRefresh }: BrowserCachePanelProps) {
 
   async function handleClean(browser: string) {
     setCleaningBrowser(browser);
+    setCleanResult(null);
+    setError(null);
     try {
-      await cleanBrowserCache(browser);
+      const result = await cleanBrowserCache(browser);
+      if (!result.success) {
+        setError(result.message || `Failed to clean ${browser} cache.`);
+      } else {
+        setCleanResult(result.message || `${browser} cache cleaned.`);
+      }
       if (onRefresh) await onRefresh();
       await loadCaches();
-    } catch {
-      // fail silently
+    } catch (err) {
+      setError(err instanceof Error ? err.message : `Failed to clean ${browser} cache.`);
     } finally {
       setCleaningBrowser(null);
     }
@@ -62,14 +70,25 @@ export function BrowserCachePanel({ onRefresh }: BrowserCachePanelProps) {
 
   async function handleCleanAll() {
     setCleaningAll(true);
+    setCleanResult(null);
+    setError(null);
     try {
+      const results: string[] = [];
       for (const cache of caches) {
-        await cleanBrowserCache(cache.manager);
+        try {
+          const result = await cleanBrowserCache(cache.manager);
+          results.push(result.message || `${cache.manager}: done`);
+        } catch (err) {
+          results.push(
+            `${cache.manager}: ${err instanceof Error ? err.message : "failed"}`,
+          );
+        }
       }
+      setCleanResult(results.join("; "));
       if (onRefresh) await onRefresh();
       await loadCaches();
-    } catch {
-      // fail silently
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to clean browser caches.");
     } finally {
       setCleaningAll(false);
     }
@@ -175,6 +194,18 @@ export function BrowserCachePanel({ onRefresh }: BrowserCachePanelProps) {
           </Card>
         ))}
       </div>
+
+      {(error || cleanResult) && (
+        <div
+          className={`rounded-lg border px-4 py-3 text-sm ${
+            error
+              ? "border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400"
+              : "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-400"
+          }`}
+        >
+          {error || cleanResult}
+        </div>
+      )}
 
       <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-400">
         <p className="font-medium">About browser cache cleanup</p>

@@ -22,9 +22,11 @@ pub struct AIAnalysis {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct CleanupRecommendation {
+    pub id: String,
     pub category: String,
+    pub title: String,
     pub description: String,
-    pub estimated_savings: u64,
+    pub space_reclaimable: u64,
     pub risk_level: String,
     pub items: Vec<CleanupItem>,
 }
@@ -33,8 +35,8 @@ pub struct CleanupRecommendation {
 pub struct CleanupItem {
     pub path: String,
     pub size: u64,
-    pub reason: String,
-    pub safe_to_delete: bool,
+    pub description: String,
+    pub selected: bool,
 }
 
 pub struct AIClient {

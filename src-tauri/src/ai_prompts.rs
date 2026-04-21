@@ -47,13 +47,15 @@ pub fn build_recommendations_prompt(system_stats: &str) -> String {
          recommendations. Respond with ONLY valid JSON \
          (no markdown, no code blocks):\n{system_stats}\n\n\
          Respond with a JSON array of recommendations:\n\
-         [{{\"category\": \"<category>\", \
+         [{{\"id\": \"<unique-id>\", \
+         \"category\": \"<category>\", \
+         \"title\": \"<short title>\", \
          \"description\": \"<what to clean>\", \
-         \"estimated_savings\": <bytes>, \
+         \"space_reclaimable\": <bytes>, \
          \"risk_level\": \"<low|medium|high>\", \
          \"items\": [{{\"path\": \"<path>\", \
-         \"size\": <bytes>, \"reason\": \"<why>\", \
-         \"safe_to_delete\": <true|false>}}]}}]"
+         \"size\": <bytes>, \"description\": \"<why>\", \
+         \"selected\": <true|false>}}]}}]"
     )
 }
 

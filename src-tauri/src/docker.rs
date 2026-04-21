@@ -7,25 +7,27 @@ use crate::system::CleanupResult;
 pub struct DockerImage {
     pub repository: String,
     pub tag: String,
-    pub image_id: String,
-    pub size: String,
+    pub id: String,
+    pub size: u64,
     pub created: String,
+    pub in_use: bool,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct DockerContainer {
-    pub container_id: String,
+    pub id: String,
     pub image: String,
     pub status: String,
-    pub size: String,
-    pub names: String,
+    pub size: u64,
+    pub name: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct DockerVolume {
     pub name: String,
     pub driver: String,
-    pub size: String,
+    pub size: u64,
+    pub in_use: bool,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -33,8 +35,8 @@ pub struct DockerInfo {
     pub images: Vec<DockerImage>,
     pub containers: Vec<DockerContainer>,
     pub volumes: Vec<DockerVolume>,
-    pub build_cache_size: String,
-    pub total_reclaimable: String,
+    pub build_cache_size: u64,
+    pub total_reclaimable: u64,
 }
 
 pub fn get_docker_info() -> Result<DockerInfo, String> {
@@ -82,9 +84,10 @@ fn get_docker_images() -> Result<Vec<DockerImage>, String> {
             DockerImage {
                 repository: tab_field(&p, 0),
                 tag: tab_field(&p, 1),
-                image_id: tab_field(&p, 2),
-                size: tab_field(&p, 3),
+                id: tab_field(&p, 2),
+                size: parse_size_string(&tab_field(&p, 3)),
                 created: tab_field(&p, 4),
+                in_use: false,
             }
         })
         .collect();
@@ -107,11 +110,11 @@ fn get_docker_containers() -> Result<Vec<DockerContainer>, String> {
         .map(|line| {
             let p: Vec<&str> = line.split('\t').collect();
             DockerContainer {
-                container_id: tab_field(&p, 0),
+                id: tab_field(&p, 0),
                 image: tab_field(&p, 1),
                 status: tab_field(&p, 2),
-                size: tab_field(&p, 3),
-                names: tab_field(&p, 4),
+                size: parse_size_string(&tab_field(&p, 3)),
+                name: tab_field(&p, 4),
             }
         })
         .collect();
@@ -134,7 +137,8 @@ fn get_docker_volumes() -> Result<Vec<DockerVolume>, String> {
             DockerVolume {
                 name: tab_field(&p, 0),
                 driver: tab_field(&p, 1),
-                size: "unknown".to_string(),
+                size: 0,
+                in_use: false,
             }
         })
         .collect();
@@ -142,23 +146,23 @@ fn get_docker_volumes() -> Result<Vec<DockerVolume>, String> {
     Ok(volumes)
 }
 
-fn get_docker_disk_usage() -> Result<(String, String), String> {
+fn get_docker_disk_usage() -> Result<(u64, u64), String> {
     let output = Command::new("docker")
         .args(["system", "df"])
         .output()
         .map_err(|e| format!("docker system df: {e}"))?;
 
     let stdout = String::from_utf8_lossy(&output.stdout);
-    let mut build_cache = "0B".to_string();
-    let mut total_reclaimable = "0B".to_string();
+    let mut build_cache = 0u64;
+    let mut total_reclaimable = 0u64;
 
     for line in stdout.lines() {
         if line.starts_with("Build Cache") {
             let parts: Vec<&str> = line.split_whitespace().collect();
             if parts.len() >= 4 {
-                build_cache = parts[2].to_string();
+                build_cache = parse_size_string(parts[2]);
                 if let Some(r) = parts.last() {
-                    total_reclaimable = r.to_string();
+                    total_reclaimable = parse_size_string(r);
                 }
             }
         }
@@ -167,11 +171,24 @@ fn get_docker_disk_usage() -> Result<(String, String), String> {
     Ok((build_cache, total_reclaimable))
 }
 
-pub fn clean_docker(target: &str) -> Result<CleanupResult, String> {
+pub fn clean_docker(target: &str, ids: Option<&[String]>) -> Result<CleanupResult, String> {
+    // If specific IDs are provided, remove those individually
+    if let Some(ids) = ids {
+        if ids.is_empty() {
+            return Ok(CleanupResult {
+                success: true,
+                space_freed: 0,
+                message: "No items selected".to_string(),
+            });
+        }
+        return clean_docker_selected(target, ids);
+    }
+
+    // Bulk prune based on target
     let args: Vec<&str> = match target {
-        "images" => vec!["image", "prune", "-a", "-f"],
-        "containers" => vec!["container", "prune", "-f"],
-        "volumes" => vec!["volume", "prune", "-f"],
+        "images" | "unused_images" => vec!["image", "prune", "-a", "-f"],
+        "containers" | "unused_containers" => vec!["container", "prune", "-f"],
+        "volumes" | "unused_volumes" => vec!["volume", "prune", "-f"],
         "build-cache" => vec!["builder", "prune", "-a", "-f"],
         "all" => vec!["system", "prune", "-a", "-f", "--volumes"],
         _ => return Err(format!("Unknown docker cleanup target: {target}")),
@@ -193,8 +210,76 @@ pub fn clean_docker(target: &str) -> Result<CleanupResult, String> {
             message: stdout.to_string(),
         })
     } else {
+        // Some docker prune commands return exit code 1 when there's nothing to prune
+        if stderr.contains("nothing") || stdout.contains("nothing") {
+            return Ok(CleanupResult {
+                success: true,
+                space_freed: 0,
+                message: "Nothing to clean".to_string(),
+            });
+        }
         Err(format!("Docker cleanup failed: {stderr}"))
     }
+}
+
+fn clean_docker_selected(target: &str, ids: &[String]) -> Result<CleanupResult, String> {
+    let mut total_freed: u64 = 0;
+    let mut messages: Vec<String> = Vec::new();
+
+    for id in ids {
+        let result = match target {
+            "images" => {
+                let out = Command::new("docker")
+                    .args(["rmi", "-f", id])
+                    .output()
+                    .map_err(|e| format!("docker rmi: {e}"))?;
+                if out.status.success() {
+                    Ok(parse_reclaimed_space(&String::from_utf8_lossy(&out.stdout)))
+                } else {
+                    Err(String::from_utf8_lossy(&out.stderr).to_string())
+                }
+            }
+            "containers" => {
+                let out = Command::new("docker")
+                    .args(["rm", "-f", id])
+                    .output()
+                    .map_err(|e| format!("docker rm: {e}"))?;
+                if out.status.success() {
+                    Ok(0u64)
+                } else {
+                    Err(String::from_utf8_lossy(&out.stderr).to_string())
+                }
+            }
+            "volumes" => {
+                let out = Command::new("docker")
+                    .args(["volume", "rm", "-f", id])
+                    .output()
+                    .map_err(|e| format!("docker volume rm: {e}"))?;
+                if out.status.success() {
+                    Ok(0u64)
+                } else {
+                    Err(String::from_utf8_lossy(&out.stderr).to_string())
+                }
+            }
+            _ => Err(format!("Selective cleanup not supported for: {target}")),
+        };
+
+        match result {
+            Ok(freed) => {
+                total_freed += freed;
+                messages.push(format!("Removed {id}"));
+            }
+            Err(err) => {
+                messages.push(format!("Failed to remove {id}: {err}"));
+            }
+        }
+    }
+
+    Ok(CleanupResult {
+        success: messages.iter().any(|m| m.starts_with("Removed")),
+        space_freed: total_freed,
+        message: messages.join("; "),
+    })
 }
 
 fn parse_reclaimed_space(output: &str) -> u64 {
@@ -210,13 +295,14 @@ fn parse_reclaimed_space(output: &str) -> u64 {
 
 fn parse_size_string(s: &str) -> u64 {
     let s = s.trim();
-    let (num_str, mult) = if let Some(n) = s.strip_suffix("GB") {
+    // Handle sizes like "1.05GB", "24.3MB", "0B", etc.
+    let (num_str, mult) = if let Some((n, _)) = s.split_once("GB") {
         (n, 1_000_000_000u64)
-    } else if let Some(n) = s.strip_suffix("MB") {
+    } else if let Some((n, _)) = s.split_once("MB") {
         (n, 1_000_000u64)
-    } else if let Some(n) = s.strip_suffix("kB") {
+    } else if let Some((n, _)) = s.split_once("kB") {
         (n, 1_000u64)
-    } else if let Some(n) = s.strip_suffix("B") {
+    } else if let Some((n, _)) = s.split_once("B") {
         (n, 1u64)
     } else {
         (s, 1u64)

@@ -180,7 +180,7 @@ pub fn get_storage_breakdown() -> Result<StorageBreakdown, String> {
         })
         .collect();
 
-    categories.sort_by(|a, b| b.size.cmp(&a.size));
+    categories.sort_by_key(|b| std::cmp::Reverse(b.size));
 
     Ok(StorageBreakdown {
         categories,

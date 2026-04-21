@@ -114,7 +114,7 @@ pub fn get_browser_caches() -> Result<Vec<PackageCacheInfo>, String> {
     let caches = vec![
         ("Google Chrome", home.join(".cache/google-chrome")),
         ("Brave", home.join(".cache/BraveSoftware")),
-        ("Firefox", home.join(".mozilla/firefox")),
+        ("Firefox", home.join(".cache/mozilla/firefox")),
         ("Chromium", home.join(".cache/chromium")),
     ];
 
