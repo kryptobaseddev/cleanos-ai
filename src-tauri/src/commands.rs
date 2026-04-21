@@ -95,7 +95,10 @@ pub async fn get_docker_info() -> Result<docker::DockerInfo, String> {
 }
 
 #[tauri::command]
-pub async fn clean_docker(target: String, ids: Option<Vec<String>>) -> Result<CleanupResult, String> {
+pub async fn clean_docker(
+    target: String,
+    ids: Option<Vec<String>>,
+) -> Result<CleanupResult, String> {
     tokio::task::spawn_blocking(move || docker::clean_docker(&target, ids.as_deref()))
         .await
         .map_err(|e| format!("Task join error: {e}"))?

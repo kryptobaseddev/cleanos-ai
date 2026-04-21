@@ -31,7 +31,8 @@ pub async fn clean_logs() -> Result<CleanupResult, String> {
                     if stderr.contains("password") || stderr.contains("a password is required") {
                         Err("Log cleanup requires elevated privileges. \
                              Please configure passwordless sudo for journalctl, \
-                             or run: sudo journalctl --vacuum-size=100M".to_string())
+                             or run: sudo journalctl --vacuum-size=100M"
+                            .to_string())
                     } else {
                         Err(format!("journalctl vacuum failed: {stderr}"))
                     }
@@ -130,7 +131,10 @@ fn find_firefox_caches(base_dir: &std::path::Path) -> Vec<std::path::PathBuf> {
             if path.is_dir() {
                 let name = path.file_name().and_then(|n| n.to_str()).unwrap_or("");
                 // Firefox profiles end with .default or .default-release
-                if name.ends_with(".default") || name.ends_with(".default-release") || name.contains(".default-") {
+                if name.ends_with(".default")
+                    || name.ends_with(".default-release")
+                    || name.contains(".default-")
+                {
                     caches.push(path.join("cache2"));
                 }
             }
