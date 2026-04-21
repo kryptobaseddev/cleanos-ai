@@ -148,3 +148,7 @@ export async function installUpdate(): Promise<void> {
 export async function getCurrentVersion(): Promise<string> {
   return invoke<string>("get_current_version");
 }
+
+export async function isAppimage(): Promise<boolean> {
+  return invoke<boolean>("is_appimage");
+}

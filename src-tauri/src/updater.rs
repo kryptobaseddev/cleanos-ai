@@ -30,8 +30,23 @@ pub async fn check_for_updates(app: tauri::AppHandle) -> Result<Option<UpdateInf
     }
 }
 
+/// Returns true if the app is running from an AppImage bundle.
+/// The `APPIMAGE` environment variable is set by the AppImage runtime.
+fn running_from_appimage() -> bool {
+    std::env::var("APPIMAGE").is_ok()
+}
+
 #[tauri::command]
 pub async fn install_update(app: tauri::AppHandle) -> Result<(), String> {
+    if !running_from_appimage() {
+        return Err(
+            "Auto-updates are only supported for AppImage installations. \
+             Please update using your package manager (dnf/apt) \
+             or download the latest release from GitHub."
+                .to_string(),
+        );
+    }
+
     let updater = app
         .updater()
         .map_err(|e| format!("Updater not available: {e}"))?;
@@ -48,6 +63,11 @@ pub async fn install_update(app: tauri::AppHandle) -> Result<(), String> {
         .map_err(|e| format!("Failed to install update: {e}"))?;
 
     Ok(())
+}
+
+#[tauri::command]
+pub fn is_appimage() -> bool {
+    running_from_appimage()
 }
 
 #[tauri::command]

@@ -76,6 +76,7 @@ pub fn run() {
             updater::check_for_updates,
             updater::install_update,
             updater::get_current_version,
+            updater::is_appimage,
         ])
         .run(tauri::generate_context!())
     {

@@ -4,6 +4,7 @@ import {
   checkForUpdates as checkForUpdatesCmd,
   installUpdate as installUpdateCmd,
   getCurrentVersion as getCurrentVersionCmd,
+  isAppimage as isAppimageCmd,
 } from "@/services/tauri-commands";
 
 interface UseUpdateCheckerReturn {
@@ -14,6 +15,7 @@ interface UseUpdateCheckerReturn {
   installing: boolean;
   error: string | null;
   lastChecked: boolean;
+  isAppImage: boolean;
   checkForUpdates: (silent?: boolean) => Promise<void>;
   installUpdate: () => Promise<void>;
 }
@@ -25,11 +27,15 @@ export function useUpdateChecker(autoCheck = true): UseUpdateCheckerReturn {
   const [installing, setInstalling] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lastChecked, setLastChecked] = useState(false);
+  const [isAppImage, setIsAppImage] = useState(false);
 
   useEffect(() => {
     getCurrentVersionCmd()
       .then(setCurrentVersion)
       .catch(() => setCurrentVersion("unknown"));
+    isAppimageCmd()
+      .then(setIsAppImage)
+      .catch(() => setIsAppImage(false));
   }, []);
 
   const checkForUpdates = useCallback(async (silent = false) => {
@@ -83,6 +89,7 @@ export function useUpdateChecker(autoCheck = true): UseUpdateCheckerReturn {
     installing,
     error,
     lastChecked,
+    isAppImage,
     checkForUpdates,
     installUpdate,
   };

@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/Card";
 import { useUpdateChecker } from "@/hooks/useUpdateChecker";
-import { RefreshCw, Download, CheckCircle, AlertCircle } from "lucide-react";
+import { RefreshCw, Download, CheckCircle, AlertCircle, ExternalLink } from "lucide-react";
+import { openUrl } from "@tauri-apps/plugin-opener";
 
 export function UpdateChecker() {
   const {
@@ -11,9 +12,14 @@ export function UpdateChecker() {
     installing,
     error,
     lastChecked,
+    isAppImage,
     checkForUpdates,
     installUpdate,
   } = useUpdateChecker(false);
+
+  const openReleasePage = () => {
+    openUrl("https://github.com/kryptobaseddev/cleanos-ai/releases/latest");
+  };
 
   return (
     <Card>
@@ -76,17 +82,27 @@ export function UpdateChecker() {
                   </p>
                 )}
               </div>
-              <button
-                onClick={installUpdate}
-                disabled={installing}
-                className="flex items-center gap-2 rounded-lg bg-primary-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                <Download
-                  size={14}
-                  className={installing ? "animate-bounce" : ""}
-                />
-                {installing ? "Installing..." : "Install Update"}
-              </button>
+              {isAppImage ? (
+                <button
+                  onClick={installUpdate}
+                  disabled={installing}
+                  className="flex items-center gap-2 rounded-lg bg-primary-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <Download
+                    size={14}
+                    className={installing ? "animate-bounce" : ""}
+                  />
+                  {installing ? "Installing..." : "Install Update"}
+                </button>
+              ) : (
+                <button
+                  onClick={openReleasePage}
+                  className="flex items-center gap-2 rounded-lg bg-primary-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-primary-600"
+                >
+                  <ExternalLink size={14} />
+                  Download from GitHub
+                </button>
+              )}
             </div>
 
             {/* Changelog */}
@@ -110,6 +126,21 @@ export function UpdateChecker() {
             <p className="text-sm text-surface-600 dark:text-surface-400">
               Downloading and installing update. The app will restart
               automatically.
+            </p>
+          </div>
+        )}
+
+        {/* Non-AppImage install note */}
+        {!checking && updateAvailable && !isAppImage && (
+          <div className="flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 dark:border-amber-800 dark:bg-amber-900/20">
+            <AlertCircle
+              size={16}
+              className="mt-0.5 shrink-0 text-amber-500"
+            />
+            <p className="text-sm text-amber-700 dark:text-amber-400">
+              Auto-updates are only available for AppImage installations.
+              Your system package (deb/rpm) must be updated through your
+              package manager or by downloading the latest release.
             </p>
           </div>
         )}
