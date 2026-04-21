@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2026.2.3] - 2026-04-21
+
+### Fixed
+
+- **Updater**: Fixed confusing "failed to install update" error for `.deb`/`.rpm` installs. The app now detects non-AppImage installations and shows a "Download from GitHub" button with an explanatory message instead of attempting (and failing) to auto-update system packages.
+- **Updater**: Added `is_appimage()` backend command to detect AppImage runtime at startup.
+
 ## [2026.2.2] - 2026-04-20
 
 ### Fixed
